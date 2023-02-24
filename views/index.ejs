@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RecogitoJS</title>
+
+    <link rel="stylesheet" href="/css/recogito.min.css" />
+  </head>
+  <body>
+    <h1>RecogitoJS</h1>
+    <div id="content" class="plaintext">
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book. It has survived not only five
+        centuries, but also the leap into electronic typesetting, remaining
+        essentially unchanged. It was popularised in the 1960s with the release
+        of Letraset sheets containing Lorem Ipsum passages, and more recently
+        with desktop publishing software like Aldus PageMaker including versions
+        of Lorem Ipsum.
+      </p>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book. It has survived not only five
+        centuries, but also the leap into electronic typesetting, remaining
+        essentially unchanged. It was popularised in the 1960s with the release
+        of Letraset sheets containing Lorem Ipsum passages, and more recently
+        with desktop publishing software like Aldus PageMaker including versions
+        of Lorem Ipsum.
+      </p>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book. It has survived not only five
+        centuries, but also the leap into electronic typesetting, remaining
+        essentially unchanged. It was popularised in the 1960s with the release
+        of Letraset sheets containing Lorem Ipsum passages, and more recently
+        with desktop publishing software like Aldus PageMaker including versions
+        of Lorem Ipsum.
+      </p>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book. It has survived not only five
+        centuries, but also the leap into electronic typesetting, remaining
+        essentially unchanged. It was popularised in the 1960s with the release
+        of Letraset sheets containing Lorem Ipsum passages, and more recently
+        with desktop publishing software like Aldus PageMaker including versions
+        of Lorem Ipsum.
+      </p>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book. It has survived not only five
+        centuries, but also the leap into electronic typesetting, remaining
+        essentially unchanged. It was popularised in the 1960s with the release
+        of Letraset sheets containing Lorem Ipsum passages, and more recently
+        with desktop publishing software like Aldus PageMaker including versions
+        of Lorem Ipsum.
+      </p>
+    </div>
+
+    <button onclick="listAnnotations()">Lista Annotazioni (guarda console)</button>
+
+    <script src="/js/recogito.min.js"></script>
+    <script src="/js/jquery-3.6.3.min.js"></script>
+
+    <script>
+      var r;
+
+      // init RecogitoJS
+      (function () {
+        r = Recogito.init({
+          content: "content",
+          locale: "auto",
+          allowEmpty: false,
+          widgets: [
+            { widget: "COMMENT" },
+            {
+              widget: "TAG",
+              vocabulary: [
+                // TAG POSSIBILI
+                "Place",
+                "Person",
+                "Event",
+                "Organization",
+                "Animal",
+              ],
+            },
+          ],
+          relationVocabulary: ["isRelated", "isPartOf", "isSameAs "],
+        });
+
+        // events handlers
+        r.on("selectAnnotation", function (a) {
+          console.log("selected", a);
+        });
+
+        r.on("createAnnotation", function (a) {
+          console.log("created", a);
+        });
+
+        r.on("updateAnnotation", function (annotation, previous) {
+          console.log("updated", previous, "with", annotation);
+        });
+
+        r.on("cancelSelected", function (annotation) {
+          console.log("cancel", annotation);
+        });
+
+        // carica le annotazioni seguendo il W3 standard 
+        // in questo caso farà una fetch (GET) al server che restituisce
+        // un array di JSON con le annotazioni
+        r.loadAnnotations("/load")
+      })();
+
+      function listAnnotations() {
+        let annotations = r.getAnnotations()
+
+        console.log("listAnnotations", annotations)
+        // inviando questo JSON array al server si potrebberò salvare le annotazioni
+        // non è possibile modificare il testo, solo annotare, da quanto vedo
+      }
+
+    </script>
+  </body>
+</html>
