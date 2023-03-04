@@ -15,6 +15,10 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/firepad", (req, res) => {
+  res.render("firepad");
+});
+
 app.get("/load", (req, res) => {
   let annotations = fs.readFileSync("./example.json", "utf-8");
 
