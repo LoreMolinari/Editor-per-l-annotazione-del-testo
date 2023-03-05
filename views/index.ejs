@@ -69,6 +69,8 @@
     </div>
 
     <button onclick="listAnnotations()">Lista Annotazioni (guarda console)</button>
+    <button onclick="salvaTesto()">Passa all'Editor di testo</button>
+    <button onclick="caricaTesto()">Carica il testo salvato</button>
 
     <script src="/js/recogito.min.js"></script>
     <script src="/js/jquery-3.6.3.min.js"></script>
@@ -130,6 +132,23 @@
         // non è possibile modificare il testo, solo annotare, da quanto vedo
       }
 
+      
+
+      function salvaTesto(){
+        var documento = document.getElementById('content').innerHTML;
+        localStorage.setItem('myDoc', documento);
+        console.log(localStorage.getItem('myDoc'));
+
+        window.location.assign("/firepad");
+      }
+
+      function caricaTesto(){
+        document.getElementById('content').innerHTML = "";
+        document.getElementById('content').innerHTML = localStorage.getItem("myDoc");
+        console.log(localStorage.getItem("myDoc"));
+        localStorage.removeItem("myDoc");
+        r.loadAnnotations("/load")
+      }
     </script>
   </body>
 </html>
