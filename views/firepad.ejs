@@ -84,9 +84,9 @@
                 //// Initialize contents.
                 firepad.on('ready', function() {
                     if (firepad.isHistoryEmpty()) {
-                        if(localStorage.getItem("myDoc") != null){
-                            firepad.setHtml(localStorage.getItem('myDoc'));
-                            localStorage.removeItem("myDoc");
+                        if(localStorage.getItem("recogitoDoc") != null){
+                            firepad.setHtml(localStorage.getItem('recogitoDoc'));
+                            //localStorage.removeItem("myDoc");
                         }
                         else{
                             firepad.setText("Esempio");
@@ -112,8 +112,8 @@
 
             function salvaTesto(){
                 console.log(firepad.getHtml());
-                localStorage.setItem("myDoc", firepad.getHtml());
-                window.location.assign("/");
+                localStorage.setItem("FirepadDoc", firepad.getHtml());
+                window.location.assign("/diff");
             }
         </script>
     </body>

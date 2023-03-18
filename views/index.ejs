@@ -8,10 +8,12 @@
 
     <link rel="stylesheet" href="/css/recogito.min.css" />
   </head>
-  <body>
+  <body onload="init()">
     <h1>RecogitoJS</h1>
+
+
     <div id="content" class="plaintext">
-      <p>
+      <div>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
         since the 1500s, when an unknown printer took a galley of type and
@@ -21,8 +23,8 @@
         of Letraset sheets containing Lorem Ipsum passages, and more recently
         with desktop publishing software like Aldus PageMaker including versions
         of Lorem Ipsum.
-      </p>
-      <p>
+      </div>
+      <div>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
         since the 1500s, when an unknown printer took a galley of type and
@@ -32,8 +34,8 @@
         of Letraset sheets containing Lorem Ipsum passages, and more recently
         with desktop publishing software like Aldus PageMaker including versions
         of Lorem Ipsum.
-      </p>
-      <p>
+      </div>
+      <div>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
         since the 1500s, when an unknown printer took a galley of type and
@@ -43,8 +45,8 @@
         of Letraset sheets containing Lorem Ipsum passages, and more recently
         with desktop publishing software like Aldus PageMaker including versions
         of Lorem Ipsum.
-      </p>
-      <p>
+      </div>
+      <div>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
         since the 1500s, when an unknown printer took a galley of type and
@@ -54,8 +56,8 @@
         of Letraset sheets containing Lorem Ipsum passages, and more recently
         with desktop publishing software like Aldus PageMaker including versions
         of Lorem Ipsum.
-      </p>
-      <p>
+      </div>
+      <div>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
         since the 1500s, when an unknown printer took a galley of type and
@@ -65,16 +67,19 @@
         of Letraset sheets containing Lorem Ipsum passages, and more recently
         with desktop publishing software like Aldus PageMaker including versions
         of Lorem Ipsum.
-      </p>
+      </div>
     </div>
 
     <button onclick="listAnnotations()">Lista Annotazioni (guarda console)</button>
     <button onclick="salvaTesto()">Passa all'Editor di testo</button>
-    <button onclick="caricaTesto()">Carica il testo salvato</button>
+    <button onclick="caricaTesto()">Carica il testo</button>
+
+
+    
 
     <script src="/js/recogito.min.js"></script>
     <script src="/js/jquery-3.6.3.min.js"></script>
-
+    
     <script>
       var r;
 
@@ -136,19 +141,84 @@
 
       function salvaTesto(){
         var documento = document.getElementById('content').innerHTML;
-        localStorage.setItem('myDoc', documento);
-        console.log(localStorage.getItem('myDoc'));
+        localStorage.setItem('recogitoDoc', documento);
+        console.log(localStorage.getItem('recogitoDoc'));
 
         window.location.assign("/firepad");
       }
 
       function caricaTesto(){
         document.getElementById('content').innerHTML = "";
-        document.getElementById('content').innerHTML = localStorage.getItem("myDoc");
-        console.log(localStorage.getItem("myDoc"));
-        localStorage.removeItem("myDoc");
-        r.loadAnnotations("/load")
+        localStorage.setItem('recogitoDoc', document.getElementById('content').innerHTML);
+        //console.log(localStorage.getItem('recogitoDoc'))
+        document.getElementById('content').innerHTML = localStorage.getItem("FirepadDoc");
+        //console.log(localStorage.getItem("FirepadDoc"));
+        r.loadAnnotations("/load");
       }
+
+      function diff(){
+        
+        var a = localStorage.getItem("recogitoDoc");
+        var b = localStorage.getItem("FirepadDoc");
+        var result = document.getElementById('content');
+
+        function changed() {
+          var diff = JsDiff[window.diffType](a.textContent, b.textContent);
+          var fragment = document.createDocumentFragment();
+          for (var i=0; i < diff.length; i++) {
+
+            if (diff[i].added && diff[i + 1] && diff[i + 1].removed) {
+              var swap = diff[i];
+              diff[i] = diff[i + 1];
+              diff[i + 1] = swap;
+            }
+
+            var node;
+            if (diff[i].removed) {
+              node = document.createElement('del');
+              node.appendChild(document.createTextNode(diff[i].value));
+            } else if (diff[i].added) {
+              node = document.createElement('ins');
+              node.appendChild(document.createTextNode(diff[i].value));
+            } else {
+              node = document.createTextNode(diff[i].value);
+            }
+            fragment.appendChild(node);
+          }
+
+          result.textContent = '';
+          result.appendChild(fragment);
+        }
+
+        window.onload = function() {
+          onDiffTypeChange(document.querySelector('#settings [name="diff_type"]:checked'));
+          changed();
+        };
+
+        a.onpaste = a.onchange =
+        b.onpaste = b.onchange = changed;
+
+        if ('oninput' in a) {
+          a.oninput = b.oninput = changed;
+        } else {
+          a.onkeyup = b.onkeyup = changed;
+        }
+
+        function onDiffTypeChange(radio) {
+          window.diffType = radio.value;
+          document.title = "Diff " + radio.value.slice(4);
+        }
+
+        var radio = document.getElementsByName('diff_type');
+        for (var i = 0; i < radio.length; i++) {
+          radio[i].onchange = function(e) {
+            onDiffTypeChange(e.target);
+            changed();
+          }
+        }
+
+      }
+
     </script>
   </body>
 </html>
