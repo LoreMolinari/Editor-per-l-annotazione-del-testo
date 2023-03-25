@@ -86,7 +86,10 @@
                     if (firepad.isHistoryEmpty()) {
                         if(localStorage.getItem("recogitoDoc") != null){
                             firepad.setHtml(localStorage.getItem('recogitoDoc'));
+<<<<<<< Updated upstream
                             //localStorage.removeItem("myDoc");
+=======
+>>>>>>> Stashed changes
                         }
                         else{
                             firepad.setText("Esempio");
@@ -112,7 +115,11 @@
 
             function salvaTesto(){
                 console.log(firepad.getHtml());
+<<<<<<< Updated upstream
                 localStorage.setItem("FirepadDoc", firepad.getHtml());
+=======
+                localStorage.setItem("firepadDoc", firepad.getHtml());
+>>>>>>> Stashed changes
                 window.location.assign("/diff");
             }
         </script>

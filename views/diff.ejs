@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< Updated upstream
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -77,3 +78,72 @@
   </body>
 </html>
       
+=======
+
+<html>
+  <head>
+    <script type="text/javascript" src="/js/diff_match_patch_uncompressed.js"></script>
+    <style>
+        pre {outline: 1px solid #ccc; padding: 5px; margin: 15px; }
+        .string { color: green; }
+        .number { color: darkorange; }
+        .boolean { color: blue; }
+        .null { color: magenta; }
+        .key { color: red; }
+    </style>
+  </head>
+  <body>
+
+    <h1>Test diff, 0 = uguale, -1 = differenza nel file firepad, 1 = differenza nel file di recogito </h1>
+
+    <script>
+
+        var recogito = localStorage.getItem("recogitoDoc");
+        var firepad = localStorage.getItem("firepadDoc");
+
+        print("<h3> Recogito </h3>" + recogito + "</br>");
+        print("<h3> Firepad </h3>" + firepad + "</br>");
+
+        var dmp = new diff_match_patch();
+        var diff = dmp.diff_main(firepad, recogito);
+        // Result: [(-1, "Hell"), (1, "G"), (0, "o"), (1, "odbye"), (0, " World.")]
+        dmp.diff_cleanupSemantic(diff);
+        // Result: [(-1, "Hello"), (1, "Goodbye"), (0, " World.")]
+        console.log(diff);
+
+        var str = JSON.stringify(diff, null, 2);
+
+        function output(inp) {
+            document.body.appendChild(document.createElement('pre')).innerHTML = inp;
+        }
+
+        function syntaxHighlight(json) {
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                var cls = 'number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        //elimino il nome del campo
+                        return '';
+                    } else {
+                        cls = 'string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+
+        //output(str);
+        output(syntaxHighlight(str));
+
+        function print(str) {
+            document.body.appendChild(document.createElement('test')).innerHTML = str;
+        }
+    </script>
+  </body>
+</html>
+>>>>>>> Stashed changes
