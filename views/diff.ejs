@@ -1,84 +1,4 @@
 <!DOCTYPE html>
-<<<<<<< Updated upstream
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Differences</title>
-
-    <script src="./js/PatienceDiff.js"></script>
-
-    <style>
-    div {
-      font-family: Courier;
-      font-size: 12;
-    }
-
-    textarea {
-      font-family: Courier;
-      font-size: 12;
-    }
-    </style>
-  </head>
-  <body onload="init()">
-
-    <div>
-        <textarea id="aLines" style="width:25%; height:100%"></textarea>
-        <textarea id="bLines" style="width:25%; height:100%"></textarea>
-        <button type="button" onclick="calcDiff(true)">=> Diff =></button>
-        <button type="button" onclick="calcDiff(false)">=> DiffPlus =></button>
-        <textarea id="diff" style="float:right; width:33%; height:100%;"></textarea>
-    </div>
-
-    <button type="button" onclick="toRecogito()">Passa a recogito</button>
-
-    <script type="text/javascript">
-      
-        var aLines = localStorage.getItem("recogitoDoc");
-        var bLines = localStorage.getItem("FirepadDoc");
-        
-        function init() {
-          document.getElementById("aLines").value = aLines;
-          document.getElementById("bLines").value = bLines;
-        }
-        
-        function calcDiff(diffVsPlus) {
-          var a = document.getElementById("aLines").value.split("\n");
-          var b = document.getElementById("bLines").value.split("\n");
-          if (diffVsPlus) {
-            var diff = patienceDiff(a , b);
-          } else {
-            var diff = patienceDiffPlus(a , b);
-          }
-          
-          var diffLines = "";
-          diff.lines.forEach((o) => {
-            if (o.bIndex < 0 && o.moved) {
-              diffLines += "-m  ";
-            } else if (o.moved) {
-              diffLines += "+m  ";
-            } else if (o.aIndex < 0) {
-              diffLines += "+   ";
-            } else if (o.bIndex < 0) {
-              diffLines += "-   ";
-            } else {
-              diffLines += "    ";
-            }
-            diffLines += o.line + "\n";
-          });
-          
-          document.getElementById("diff").value = diffLines;
-        }
-        
-        function toRecogito(){
-            window.location.assign("/");
-        }
-    </script>
-  </body>
-</html>
-      
-=======
 
 <html>
   <head>
@@ -146,4 +66,3 @@
     </script>
   </body>
 </html>
->>>>>>> Stashed changes
