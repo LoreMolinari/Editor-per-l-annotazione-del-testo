@@ -1,102 +1,80 @@
-[
-  {
-    "@context": "http://www.w3.org/ns/anno.jsonld",
-    "type": "Annotation",
-    "body": [
-      {
-        "type": "TextualBody",
-        "value": "a",
-        "purpose": "commenting"
-      }
-    ],
-    "target": {
-      "selector": [
+{
+  "text": "<p>Ciaoooooo</p>",
+  "annotation": [
+    {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      "type": "Annotation",
+      "body": [
         {
-          "type": "TextQuoteSelector",
-          "exact": "centuries"
-        },
-        {
-          "type": "TextPositionSelector",
-          "start": 853,
-          "end": 862
+          "type": "TextualBody",
+          "value": "a",
+          "purpose": "commenting"
         }
-      ]
+      ],
+      "target": {
+        "selector": [
+          {
+            "type": "TextQuoteSelector",
+            "exact": "centuries"
+          },
+          {
+            "type": "TextPositionSelector",
+            "start": 853,
+            "end": 862
+          }
+        ]
+      },
+      "id": "#68de9d78-b0b8-4edf-8fb5-3bdcdec672d2"
     },
-    "id": "#68de9d78-b0b8-4edf-8fb5-3bdcdec672d2"
-  },
-  {
-    "@context": "http://www.w3.org/ns/anno.jsonld",
-    "type": "Annotation",
-    "body": [
-      {
-        "type": "TextualBody",
-        "value": "x",
-        "purpose": "commenting"
-      }
-    ],
-    "target": {
-      "selector": [
+    {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      "type": "Annotation",
+      "body": [
         {
-          "type": "TextQuoteSelector",
-          "exact": "It has survived not only five centuries"
-        },
-        {
-          "type": "TextPositionSelector",
-          "start": 1975,
-          "end": 2014
+          "type": "TextualBody",
+          "value": "test",
+          "purpose": "commenting"
         }
-      ]
+      ],
+      "target": {
+        "selector": [
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+          },
+          {
+            "type": "TextPositionSelector",
+            "start": 1806,
+            "end": 1882
+          }
+        ]
+      },
+      "id": "#0791b9b6-ce8e-4aa5-95b9-61969f4b6bfe"
     },
-    "id": "#1af202aa-9713-41c8-b128-514efe5eec5e"
-  },
-  {
-    "@context": "http://www.w3.org/ns/anno.jsonld",
-    "type": "Annotation",
-    "body": [
-      {
-        "type": "TextualBody",
-        "value": "y",
-        "purpose": "commenting"
-      }
-    ],
-    "target": {
-      "selector": [
+    {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      "type": "Annotation",
+      "body": [
         {
-          "type": "TextQuoteSelector",
-          "exact": "Aldus PageMaker"
-        },
-        {
-          "type": "TextPositionSelector",
-          "start": 2253,
-          "end": 2268
+          "type": "TextualBody",
+          "value": "x",
+          "purpose": "commenting"
         }
-      ]
-    },
-    "id": "#1f8e2856-81e4-4fee-9e6b-75c3acacc167"
-  },
-  {
-    "@context": "http://www.w3.org/ns/anno.jsonld",
-    "type": "Annotation",
-    "body": [
-      {
-        "type": "TextualBody",
-        "value": "d",
-        "purpose": "commenting"
-      }
-    ],
-    "target": {
-      "selector": [
-        {
-          "type": "TextQuoteSelector",
-          "exact": "but also the leap into electronic typesetting"
-        },
-        {
-          "type": "TextPositionSelector",
-          "start": 2592,
-          "end": 2637
-        }
-      ]
-    },
-    "id": "#fcf34119-7865-42b8-97d6-f28a60aacb8a"
-  }
-]
+      ],
+      "target": {
+        "selector": [
+          {
+            "type": "TextQuoteSelector",
+            "exact": "but"
+          },
+          {
+            "type": "TextPositionSelector",
+            "start": 2595,
+            "end": 2598
+          }
+        ]
+      },
+      "id": "#4776b16e-6afd-4dfb-886c-a7a186c52dd6"
+    }
+  ]
+}

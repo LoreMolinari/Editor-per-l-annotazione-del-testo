@@ -10,67 +10,12 @@
   </head>
   <body>
     <h1>RecogitoJS</h1>
-    <div id="content" class="plaintext">
-      <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
-      </p>
-      <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
-      </p>
-      <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
-      </p>
-      <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
-      </p>
-      <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
-      </p>
-    </div>
+    <div id="content" class="plaintext"></div>
 
-    <button onclick="listAnnotations()">Lista Annotazioni (guarda console)</button>
-    <button onclick="salvaTesto()">Passa all'Editor di testo</button>
-    <button onclick="caricaTesto()">Carica il testo salvato</button>
+    <button onclick="listAnnotations()">
+      Lista Annotazioni (guarda console)
+    </button>
+    <button onclick="goToFirepad()">Passa all'Editor di testo</button>
 
     <script src="/js/recogito.min.js"></script>
     <script src="/js/jquery-3.6.3.min.js"></script>
@@ -80,6 +25,8 @@
 
       // init RecogitoJS
       (function () {
+        $("#content").load("/text");
+
         r = Recogito.init({
           content: "content",
           locale: "auto",
@@ -118,37 +65,24 @@
           console.log("cancel", annotation);
         });
 
-        // carica le annotazioni seguendo il W3 standard 
+        // carica le annotazioni seguendo il W3 standard
         // in questo caso farà una fetch (GET) al server che restituisce
         // un array di JSON con le annotazioni
-        r.loadAnnotations("/load")
+        r.loadAnnotations("/annotations");
       })();
 
       function listAnnotations() {
-        let annotations = r.getAnnotations()
+        let annotations = r.getAnnotations();
 
-        console.log("listAnnotations", annotations)
+        console.log("listAnnotations", annotations);
         // inviando questo JSON array al server si potrebberò salvare le annotazioni
         // non è possibile modificare il testo, solo annotare, da quanto vedo
       }
 
-      
-
-      function salvaTesto(){
-        var documento = document.getElementById('content').innerHTML;
-        localStorage.setItem('myDoc', documento);
-        console.log(localStorage.getItem('myDoc'));
-
-        window.location.assign("/firepad");
+      function goToFirepad() {
+        location.href = "/exit/recogito";
       }
 
-      function caricaTesto(){
-        document.getElementById('content').innerHTML = "";
-        document.getElementById('content').innerHTML = localStorage.getItem("myDoc");
-        console.log(localStorage.getItem("myDoc"));
-        localStorage.removeItem("myDoc");
-        r.loadAnnotations("/load")
-      }
     </script>
   </body>
 </html>
