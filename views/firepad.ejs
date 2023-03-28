@@ -146,7 +146,8 @@
             text: firepad
               .getHtml()
               .replaceAll("<div>", "<p>")
-              .replaceAll("</div>", "</p>"),
+              .replaceAll("</div>", "</p>")
+              .replaceAll("&#39;", "'"),
           }),
         }).then(() => location.href = "/exit/firepad")
       }
