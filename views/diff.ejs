@@ -17,9 +17,8 @@
     <h1>Test diff, 0 = uguale, -1 = differenza nel file firepad, 1 = differenza nel file di recogito </h1>
 
     <script>
-
-        var recogito = localStorage.getItem("recogitoDoc");
-        var firepad = localStorage.getItem("firepadDoc");
+        var firepad = localStorage.getItem("currentVersion");
+        var recogito = localStorage.getItem("previousVersion");
 
         print("<h3> Recogito </h3>" + recogito + "</br>");
         print("<h3> Firepad </h3>" + firepad + "</br>");

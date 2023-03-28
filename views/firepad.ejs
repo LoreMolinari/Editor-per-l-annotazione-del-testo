@@ -66,7 +66,8 @@
       <div id="firepad"></div>
     </div>
     <div>
-      <button onclick="tornoARecogito()">Ritorna all'editor annotativo</button>
+      <button onclick="goToRecogito()">Ritorna all'editor annotativo</button>
+      <button onclick="goToDiff()">Calcola differenze con il file precedente</button>
     </div>
 
     <script>
@@ -116,6 +117,7 @@
               .then((res) => res.text())
               .then((data) => {
                 firepad.setHtml(data);
+                localStorage.setItem("previousVersion", data);
               });
           }
         });
@@ -136,7 +138,7 @@
         return ref;
       }
 
-      function tornoARecogito() {
+      function goToRecogito() {
         fetch("/text", {
           method: "POST",
           headers: {
@@ -150,6 +152,16 @@
               .replaceAll("&#39;", "'"),
           }),
         }).then(() => location.href = "/exit/firepad")
+      }
+
+      function goToDiff() {
+        localStorage.setItem("currentVersion", firepad
+              .getHtml()
+              .replaceAll("<div>", "<p>")
+              .replaceAll("</div>", "</p>")
+              .replaceAll("&#39;", "'"),
+        );
+        location.replace("/diff");
       }
     </script>
   </body>
