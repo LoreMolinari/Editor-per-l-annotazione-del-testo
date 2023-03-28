@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 
+require('colors');
+const Diff = require('diff');
+
 const fs = require("fs");
 const path = require("path");
 
@@ -88,5 +91,9 @@ const saveChanges = () => {
     JSON.stringify(data, null, 2)
   );
 };
+
+app.get("/diff", (req, res) => {
+  res.render("diff");
+});
 
 app.listen(process.env.PORT);
