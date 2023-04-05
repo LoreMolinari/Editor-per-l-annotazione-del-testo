@@ -7,6 +7,18 @@
     <title>RecogitoJS</title>
 
     <link rel="stylesheet" href="/css/recogito.min.css" />
+    
+    <!--Diff-->
+    <script type="text/javascript" src="/js/diff_match_patch_uncompressed.js"></script>
+
+    <style>
+      pre {outline: 1px solid #ccc; padding: 5px; margin: 15px; }
+      .string { color: green; }
+      .number { color: darkorange; }
+      .boolean { color: blue; }
+      .null { color: magenta; }
+      .key { color: red; }
+    </style>
   </head>
   <body>
     <h1>RecogitoJS</h1>
@@ -16,6 +28,7 @@
       Lista Annotazioni (guarda console)
     </button>
     <button onclick="goToFirepad()">Passa all'Editor di testo</button>
+    <button onclick="loadDiff()">Load Diff</button>
 
     <script src="/js/recogito.min.js"></script>
     <script src="/js/jquery-3.6.3.min.js"></script>
@@ -82,6 +95,44 @@
       function goToFirepad() {
         location.href = "/exit/recogito";
       }
+
+      function loadDiff(){
+        var str;
+        var dmp = new diff_match_patch();
+
+        fetch("/diff")
+        .then((res) => res.json())
+        .then((data) => {
+            output(syntaxHighlight(JSON.stringify(data.diff)));
+            output(JSON.stringify(data.diffHTML));
+        });
+
+        function syntaxHighlight(json) {
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                var cls = 'number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        //elimino il nome del campo
+                        return '';
+                    } else {
+                        cls = 'string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+
+        function output(inp) {
+            document.body.appendChild(document.createElement('pre')).innerHTML = inp;
+        }
+      }
+
+      
 
     </script>
   </body>

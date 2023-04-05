@@ -66,13 +66,17 @@ app.get("/text", (req, res) => {
   res.send(data.text);
 });
 
+app.get("/diff", (req, res) => {
+  res.json({'diff': data.diff, 'diffHTML': data.diffHTML});
+});
+
 app.get("/annotations", (req, res) => {
   res.json(data.annotation);
 });
 
 app.post("/text", (req, res) => {
   const { text } = req.body;
-
+  
   data.text = text;
   saveChanges();
   res.status(200).send();
@@ -85,15 +89,21 @@ app.post("/annotations", (req, res) => {
   saveChanges();
 });
 
+app.post("/diff", (req, res) => {
+  const { diff } = req.body;
+  const { diffHTML } = req.body;
+
+  data.diff = diff;
+  data.diffHTML = diffHTML;
+
+  saveChanges();
+});
+
 const saveChanges = () => {
   fs.writeFileSync(
     path.join(__dirname, "example.json"),
     JSON.stringify(data, null, 2)
   );
 };
-
-app.get("/diff", (req, res) => {
-  res.render("diff");
-});
 
 app.listen(process.env.PORT);
