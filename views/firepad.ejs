@@ -144,7 +144,6 @@
       function goToRecogito() {
 
         str = diffFinder(dataRecogito, firepad);
-        var htmlFormatted;
 
         fetch("/text", {
           method: "POST",
@@ -165,19 +164,11 @@
           },
           body: JSON.stringify({
             diff: str,
-            diffHTML: htmlFormatted,
           }),
         })).then(() => location.href = "/exit/firepad")
 
         function diffFinder(dataRecogito, firepad){
           var dmp = new diff_match_patch();
-
-          console.log(dataRecogito);
-          console.log(firepad
-                .getHtml()
-                .replaceAll("<div>", "<p>")
-                .replaceAll("</div>", "</p>")
-                .replaceAll("&#39;", "'"),);
 
           var diff = dmp.diff_main(dataRecogito, firepad
                 .getHtml()
@@ -185,11 +176,6 @@
                 .replaceAll("</div>", "</p>")
                 .replaceAll("&#39;", "'"),
           );
-          
-          dmp.diff_cleanupSemantic(diff);
-
-          var str = JSON.stringify(diff, null, 2);
-          htmlFormatted = dmp.diff_prettyHtml(diff);
           
           return diff;
         }

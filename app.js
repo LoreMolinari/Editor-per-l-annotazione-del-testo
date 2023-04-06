@@ -67,7 +67,7 @@ app.get("/text", (req, res) => {
 });
 
 app.get("/diff", (req, res) => {
-  res.json({'diff': data.diff, 'diffHTML': data.diffHTML});
+  res.json({'diff': data.diff});
 });
 
 app.get("/annotations", (req, res) => {
@@ -91,10 +91,8 @@ app.post("/annotations", (req, res) => {
 
 app.post("/diff", (req, res) => {
   const { diff } = req.body;
-  const { diffHTML } = req.body;
 
   data.diff = diff;
-  data.diffHTML = diffHTML;
 
   saveChanges();
 });

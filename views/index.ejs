@@ -40,6 +40,17 @@
       (function () {
         $("#content").load("/text");
 
+        fetch("/diff")
+        .then((res) => res.json())
+        .then((data) => {
+            var dmp = new diff_match_patch();
+            localStorage.setItem("diff", JSON.stringify(data.diff));
+            
+            if(dmp.patch_make(data.diff).length!=0){
+              outputAlert(dmp.patch_make(data.diff));
+            }
+        });
+
         r = Recogito.init({
           content: "content",
           locale: "auto",
@@ -93,6 +104,7 @@
       }
 
       function goToFirepad() {
+        localStorage.removeItem("diff");
         location.href = "/exit/recogito";
       }
 
@@ -100,13 +112,13 @@
         var str;
         var dmp = new diff_match_patch();
 
-        fetch("/diff")
-        .then((res) => res.json())
-        .then((data) => {
-            output(syntaxHighlight(JSON.stringify(data.diff)));
-            output(JSON.stringify(data.diffHTML));
-        });
-
+        try{
+          output(syntaxHighlight(JSON.stringify(JSON.parse(localStorage.getItem("diff")), null, 2)));
+          output(dmp.diff_prettyHtml(JSON.parse(localStorage.getItem("diff"))));
+        }catch{
+          alert("Nessuna differenza trovata nei file\n");
+        }
+        
         function syntaxHighlight(json) {
             json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
             return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
@@ -133,6 +145,9 @@
       }
 
       
+      function outputAlert(inp) {
+        alert("Attenzione!\nSono state effettuate queste modifiche: \n\n" + inp + "\nLe precedenti annotazione verranno eliminate e sovrascritte\n");
+      }
 
     </script>
   </body>
