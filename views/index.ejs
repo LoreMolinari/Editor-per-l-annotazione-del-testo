@@ -12,12 +12,12 @@
     <script type="text/javascript" src="/js/diff_match_patch_uncompressed.js"></script>
 
     <style>
-      pre {outline: 1px solid #ccc; padding: 5px; margin: 15px; }
-      .string { color: green; }
-      .number { color: darkorange; }
-      .boolean { color: blue; }
-      .null { color: magenta; }
-      .key { color: red; }
+      pre {outline: 1px solid #ccc; padding: 5px; margin: 15px; overflow: auto;}
+      .string { color: green;}
+      .number { color: darkorange;}
+      .boolean { color: blue;}
+      .null { color: magenta;}
+      .key { color: red;}
     </style>
   </head>
   <body>
@@ -113,7 +113,7 @@
         var dmp = new diff_match_patch();
 
         try{
-          output(syntaxHighlight(JSON.stringify(JSON.parse(localStorage.getItem("diff")), null, 2)));
+          output(syntaxHighlight(JSON.stringify(JSON.parse(localStorage.getItem("diff")), null, 2) + "\n" + JSON.stringify(dmp.patch_make(JSON.parse(localStorage.getItem("diff"))), null, 2)));
           output(dmp.diff_prettyHtml(JSON.parse(localStorage.getItem("diff"))));
         }catch{
           alert("Nessuna differenza trovata nei file\n");
@@ -125,8 +125,7 @@
                 var cls = 'number';
                 if (/^"/.test(match)) {
                     if (/:$/.test(match)) {
-                        //elimino il nome del campo
-                        return '';
+                        return match;
                     } else {
                         cls = 'string';
                     }

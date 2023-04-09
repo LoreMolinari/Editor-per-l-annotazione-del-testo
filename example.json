@@ -76,11 +76,19 @@
       "id": "#4776b16e-6afd-4dfb-886c-a7a186c52dd6"
     }
   ],
-  "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie a iaculis at erat. Sed libero enim sed faucibus turpis. Augue ut lectus arcu bibendum at varius. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. Magna fringilla urna porttitor rhoncus. Magnis dis parturient montes nascetur ridiculus mus mauris. Pharetra et ultrices neque ornare aenean. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Erat pellentesque adipiscing commodo elit at imperdiet.</p>",
+  "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie a iaculis at erat. Sed libero enim sed faucibus turpis. Augue ut lectus arcu bibendum at varius. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. Magna fringilla urna porttitor rhoncus. Magnis dis parturient montes nascetur ridiculus mus mauris. Pharetra et ultrices neque ornare aenean. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus.</p>",
   "diff": [
     {
       "0": 0,
-      "1": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie a iaculis at erat. Sed libero enim sed faucibus turpis. Augue ut lectus arcu bibendum at varius. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. Magna fringilla urna porttitor rhoncus. Magnis dis parturient montes nascetur ridiculus mus mauris. Pharetra et ultrices neque ornare aenean. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Erat pellentesque adipiscing commodo elit at imperdiet.</p>"
+      "1": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie a iaculis at erat. Sed libero enim sed faucibus turpis. Augue ut lectus arcu bibendum at varius. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. Magna fringilla urna porttitor rhoncus. Magnis dis parturient montes nascetur ridiculus mus mauris. Pharetra et ultrices neque ornare aenean. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus."
+    },
+    {
+      "0": -1,
+      "1": " Diam phasellus vestibulum lorem sed risus ultricies tristique. Erat pellentesque adipiscing commodo elit at imperdiet."
+    },
+    {
+      "0": 0,
+      "1": "</p>"
     }
   ]
 }
