@@ -1,13 +1,13 @@
 const express = require("express");
 const app = express();
 
-require('colors');
-const Diff = require('diff');
+require("colors");
 
 const fs = require("fs");
 const path = require("path");
 
-const data = require("./example.json");
+let { fileName } = require("./info.json");
+let data = require(`./version/${fileName}.json`);
 require("dotenv").config();
 
 app.use(express.json());
@@ -23,8 +23,8 @@ app.set("view engine", "ejs");
 
 // route / redirect to /recogito
 app.get("/", (req, res) => {
-  res.redirect("/recogito"); 
-})
+  res.redirect("/recogito");
+});
 
 // da fare semaforo per accedere o a firepad o recogito
 app.get("/recogito", (req, res) => {
@@ -67,7 +67,7 @@ app.get("/text", (req, res) => {
 });
 
 app.get("/diff", (req, res) => {
-  res.json({'diff': data.diff});
+  res.json({ diff: data.diff });
 });
 
 app.get("/annotations", (req, res) => {
@@ -75,10 +75,10 @@ app.get("/annotations", (req, res) => {
 });
 
 app.post("/text", (req, res) => {
-  const { text } = req.body;
-  
+  const { text, version } = req.body;
+
   data.text = text;
-  saveChanges();
+  saveChanges(version);
   res.status(200).send();
 });
 
@@ -97,9 +97,13 @@ app.post("/diff", (req, res) => {
   saveChanges();
 });
 
-const saveChanges = () => {
+const saveChanges = (nameFile = fileName) => {
+  if (fileName !== nameFile) {
+    fileName = nameFile;
+    fs.writeFileSync("info.json", JSON.stringify({ fileName: nameFile }));
+  }
   fs.writeFileSync(
-    path.join(__dirname, "example.json"),
+    path.join(__dirname, "version", fileName + ".json"),
     JSON.stringify(data, null, 2)
   );
 };

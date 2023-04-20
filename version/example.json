@@ -1,0 +1,86 @@
+{
+  "annotation": [
+    {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      "type": "Annotation",
+      "body": [
+        {
+          "type": "TextualBody",
+          "value": "a",
+          "purpose": "commenting"
+        }
+      ],
+      "target": {
+        "selector": [
+          {
+            "type": "TextQuoteSelector",
+            "exact": "centuries"
+          },
+          {
+            "type": "TextPositionSelector",
+            "start": 853,
+            "end": 862
+          }
+        ]
+      },
+      "id": "#68de9d78-b0b8-4edf-8fb5-3bdcdec672d2"
+    },
+    {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      "type": "Annotation",
+      "body": [
+        {
+          "type": "TextualBody",
+          "value": "test",
+          "purpose": "commenting"
+        }
+      ],
+      "target": {
+        "selector": [
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+          },
+          {
+            "type": "TextPositionSelector",
+            "start": 1806,
+            "end": 1882
+          }
+        ]
+      },
+      "id": "#0791b9b6-ce8e-4aa5-95b9-61969f4b6bfe"
+    },
+    {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      "type": "Annotation",
+      "body": [
+        {
+          "type": "TextualBody",
+          "value": "x",
+          "purpose": "commenting"
+        }
+      ],
+      "target": {
+        "selector": [
+          {
+            "type": "TextQuoteSelector",
+            "exact": "but"
+          },
+          {
+            "type": "TextPositionSelector",
+            "start": 2595,
+            "end": 2598
+          }
+        ]
+      },
+      "id": "#4776b16e-6afd-4dfb-886c-a7a186c52dd6"
+    }
+  ],
+  "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie a iaculis at erat. Sed libero enim sed faucibus turpis. Augue ut lectus arcu bibendum at varius. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. Magna fringilla urna porttitor rhoncus. Magnis dis parturient montes nascetur ridiculus mus mauris. Pharetra et ultrices neque ornare aenean. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus.</p>",
+  "diff": [
+    {
+      "0": 0,
+      "1": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie a iaculis at erat. Sed libero enim sed faucibus turpis. Augue ut lectus arcu bibendum at varius. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. Magna fringilla urna porttitor rhoncus. Magnis dis parturient montes nascetur ridiculus mus mauris. Pharetra et ultrices neque ornare aenean. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus.</p>"
+    }
+  ]
+}

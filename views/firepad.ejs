@@ -29,7 +29,10 @@
     <link rel="stylesheet" href="./css/firepad-userlist.css" />
 
     <!--Diff-->
-    <script type="text/javascript" src="/js/diff_match_patch_uncompressed.js"></script>
+    <script
+      type="text/javascript"
+      src="/js/diff_match_patch_uncompressed.js"
+    ></script>
 
     <style>
       html {
@@ -142,7 +145,6 @@
       }
 
       function goToRecogito() {
-
         str = diffFinder(dataRecogito, firepad);
 
         fetch("/text", {
@@ -156,27 +158,34 @@
               .replaceAll("<div>", "<p>")
               .replaceAll("</div>", "</p>")
               .replaceAll("&#39;", "'"),
+            version: window.location.hash.replace(/#/g, ""),
           }),
-        }).then(fetch("/diff", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            diff: str,
-          }),
-        })).then(() => location.href = "/exit/firepad")
+        })
+          .then(
+            fetch("/diff", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                diff: str,
+              }),
+            })
+          )
+          .then(() => (location.href = "/exit/firepad"));
 
-        function diffFinder(dataRecogito, firepad){
+        function diffFinder(dataRecogito, firepad) {
           var dmp = new diff_match_patch();
 
-          var diff = dmp.diff_main(dataRecogito, firepad
-                .getHtml()
-                .replaceAll("<div>", "<p>")
-                .replaceAll("</div>", "</p>")
-                .replaceAll("&#39;", "'"),
+          var diff = dmp.diff_main(
+            dataRecogito,
+            firepad
+              .getHtml()
+              .replaceAll("<div>", "<p>")
+              .replaceAll("</div>", "</p>")
+              .replaceAll("&#39;", "'")
           );
-          
+
           return diff;
         }
       }
