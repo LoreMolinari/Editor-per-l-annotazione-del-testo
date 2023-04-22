@@ -124,6 +124,7 @@
               .then((data) => {
                 dataRecogito = data;
                 firepad.setHtml(data);
+                localStorage.setItem("prevtext", data);
               });
           }
         });
@@ -160,19 +161,19 @@
               .replaceAll("&#39;", "'"),
             version: window.location.hash.replace(/#/g, ""),
           }),
-        })
-          .then(
+        }).then(
             fetch("/diff", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
+                prevtext: localStorage.getItem("prevtext"),
                 diff: str,
               }),
-            })
-          )
-          .then(() => (location.href = "/exit/firepad"));
+            }),
+            localStorage.removeItem("prevtext")
+          ).then(() => (location.href = "/exit/firepad"));
 
         function diffFinder(dataRecogito, firepad) {
           var dmp = new diff_match_patch();

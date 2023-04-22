@@ -2,11 +2,14 @@ const express = require("express");
 const app = express();
 
 require("colors");
+const moment = require('moment');
 
 const fs = require("fs");
 const path = require("path");
 
 let { fileName } = require("./info.json");
+require("ejs");
+
 let data = require(`./version/${fileName}.json`);
 require("dotenv").config();
 
@@ -78,6 +81,7 @@ app.post("/text", (req, res) => {
   const { text, version } = req.body;
 
   data.text = text;
+
   saveChanges(version);
   res.status(200).send();
 });
@@ -90,17 +94,27 @@ app.post("/annotations", (req, res) => {
 });
 
 app.post("/diff", (req, res) => {
-  const { diff } = req.body;
+  const { diff, prevtext } = req.body;
 
   data.diff = diff;
+  data.prevtext = prevtext;
 
   saveChanges();
 });
 
 const saveChanges = (nameFile = fileName) => {
   if (fileName !== nameFile) {
-    fileName = nameFile;
-    fs.writeFileSync("info.json", JSON.stringify({ fileName: nameFile }));
+    var prevtext = data.prevtext;
+    var text = data.text;
+
+    if(text !== prevtext){
+      var time = moment().format('YYYY-MM-DD[T]HH-mm-ss-');
+    
+      nameFile = time + nameFile;
+      fileName = nameFile;
+      
+      fs.writeFileSync("info.json", JSON.stringify({ fileName: nameFile }));
+    }
   }
   fs.writeFileSync(
     path.join(__dirname, "version", fileName + ".json"),

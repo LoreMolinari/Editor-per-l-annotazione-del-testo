@@ -76,11 +76,20 @@
       "id": "#4776b16e-6afd-4dfb-886c-a7a186c52dd6"
     }
   ],
-  "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie a iaculis at erat. Sed libero enim sed faucibus turpis. Augue ut lectus arcu bibendum at varius. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. Magna fringilla urna porttitor rhoncus. Magnis dis parturient montes nascetur ridiculus mus mauris. Pharetra et ultrices neque ornare aenean. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus.</p>",
+  "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie a iaculis at erat. Sed libero enim sed faucibus turpis. Augue ut lectus arcu bibendum at varius. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. Magna fringilla urna porttitor rhoncus. Magnis dis parturient montes nascetur ridiculus mus mauris. Pharetra et ultrices neque ornare aenean. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus.</p><p><br/></p><p>Lorem ipsum</p>",
   "diff": [
     {
       "0": 0,
-      "1": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie a iaculis at erat. Sed libero enim sed faucibus turpis. Augue ut lectus arcu bibendum at varius. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. Magna fringilla urna porttitor rhoncus. Magnis dis parturient montes nascetur ridiculus mus mauris. Pharetra et ultrices neque ornare aenean. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus.</p>"
+      "1": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie a iaculis at erat. Sed libero enim sed faucibus turpis. Augue ut lectus arcu bibendum at varius. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. Magna fringilla urna porttitor rhoncus. Magnis dis parturient montes nascetur ridiculus mus mauris. Pharetra et ultrices neque ornare aenean. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus.</p><p><br/></p><p>Lorem"
+    },
+    {
+      "0": 1,
+      "1": " ipsum"
+    },
+    {
+      "0": 0,
+      "1": "</p>"
     }
-  ]
+  ],
+  "prevtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie a iaculis at erat. Sed libero enim sed faucibus turpis. Augue ut lectus arcu bibendum at varius. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. Magna fringilla urna porttitor rhoncus. Magnis dis parturient montes nascetur ridiculus mus mauris. Pharetra et ultrices neque ornare aenean. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus.</p><p><br/></p><p>Lorem</p>"
 }
