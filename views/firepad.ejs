@@ -129,15 +129,15 @@
           }
         });
       }
-      // Helper to get hash from end of URL or generate a random one.
+
       function getExampleRef() {
         var ref = firebase.database().ref();
         var hash = window.location.hash.replace(/#/g, "");
         if (hash) {
           ref = ref.child(hash);
         } else {
-          ref = ref.push(); // generate unique location.
-          window.location = window.location + "#" + ref.key; // add it as a hash to the URL.
+          ref = ref.push();
+          window.location = window.location + "#" + ref.key;
         }
         if (typeof console !== "undefined") {
           console.log("Firebase data: ", ref.toString());
@@ -146,7 +146,7 @@
       }
 
       function goToRecogito() {
-        str = diffFinder(dataRecogito, firepad);
+        str = diffBasic(dataRecogito, firepad);
 
         fetch("/text", {
           method: "POST",
@@ -175,7 +175,7 @@
             localStorage.removeItem("prevtext")
           ).then(() => (location.href = "/exit/firepad"));
 
-        function diffFinder(dataRecogito, firepad) {
+        function diffBasic(dataRecogito, firepad) {
           var dmp = new diff_match_patch();
 
           var diff = dmp.diff_main(

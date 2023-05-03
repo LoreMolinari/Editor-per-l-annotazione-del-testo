@@ -87,9 +87,9 @@ app.post("/text", (req, res) => {
 });
 
 app.post("/annotations", (req, res) => {
-  const { annotation } = req.body;
-
-  data.annotation = annotation;
+  const { annotations } = req.body;
+  
+  data.annotation = annotations;
   saveChanges();
 });
 

@@ -79,14 +79,44 @@
 
         r.on("createAnnotation", function (a) {
           console.log("created", a);
+
+          fetch("/annotations", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                annotations: r.getAnnotations(),
+              }),
+          });
         });
 
         r.on("updateAnnotation", function (annotation, previous) {
           console.log("updated", previous, "with", annotation);
+
+          fetch("/annotations", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                annotations: r.getAnnotations(),
+              }),
+          });
         });
 
         r.on("cancelSelected", function (annotation) {
           console.log("cancel", annotation);
+
+          fetch("/annotations", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                annotations: r.getAnnotations(),
+              }),
+          });
         });
 
         // carica le annotazioni seguendo il W3 standard
