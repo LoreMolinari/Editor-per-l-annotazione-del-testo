@@ -1,0 +1,46 @@
+{
+  "annotation": [
+    {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      "type": "Annotation",
+      "body": [
+        {
+          "type": "TextualBody",
+          "value": "a",
+          "purpose": "commenting"
+        },
+        {
+          "type": "TextualBody",
+          "purpose": "tagging",
+          "value": "Aspetto Fisico"
+        }
+      ],
+      "target": {
+        "selector": [
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Lorem ipsum dolor sit amet"
+          },
+          {
+            "type": "TextPositionSelector",
+            "start": 0,
+            "end": 26
+          }
+        ]
+      },
+      "id": "#03cf6fbf-85b8-4900-a4ca-9764d2e09069"
+    }
+  ],
+  "text": "<p>Lorem ipsum dolor sit amet. Vel neque galisum ad possimus enim sit explicabo natus. Qui voluptatum tenetur et quae laborum aut voluptas ratione et culpa explicabo aut optio esse eum excepturi deleniti.</p>",
+  "diff": [
+    {
+      "0": 0,
+      "1": "Lorem ipsum dolor sit amet. Vel neque galisum ad possimus enim sit explicabo natus. Qui voluptatum tenetur et quae laborum aut voluptas ratione et culpa explicabo aut optio esse eum excepturi deleniti."
+    },
+    {
+      "0": -1,
+      "1": "Lorem Ipsum"
+    }
+  ],
+  "prevtext": "<p>Lorem ipsum dolor sit amet. Vel neque galisum ad possimus enim sit explicabo natus. Qui voluptatum tenetur et quae laborum aut voluptas ratione et culpa explicabo aut optio esse eum excepturi deleniti.</p><p><br/></p><p>Lorem Ipsum</p>"
+}

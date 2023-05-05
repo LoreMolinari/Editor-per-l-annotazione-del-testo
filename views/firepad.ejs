@@ -161,7 +161,8 @@
               .replaceAll("&#39;", "'"),
             version: window.location.hash.replace(/#/g, ""),
           }),
-        }).then(
+        })
+          .then(
             fetch("/diff", {
               method: "POST",
               headers: {
@@ -173,18 +174,15 @@
               }),
             }),
             localStorage.removeItem("prevtext")
-          ).then(() => (location.href = "/exit/firepad"));
+          )
+          .then(() => (location.href = "/exit/firepad"));
 
         function diffBasic(dataRecogito, firepad) {
           var dmp = new diff_match_patch();
 
           var diff = dmp.diff_main(
-            dataRecogito,
-            firepad
-              .getHtml()
-              .replaceAll("<div>", "<p>")
-              .replaceAll("</div>", "</p>")
-              .replaceAll("&#39;", "'")
+            dataRecogito.replace(/<\/?[^>]+(>|$)/g, ""),
+            firepad.getHtml().replace(/<\/?[^>]+(>|$)/g, "")
           );
 
           return diff;

@@ -1,42 +1,36 @@
 {
-  "annotation": [
-    {
-      "@context": "http://www.w3.org/ns/anno.jsonld",
-      "type": "Annotation",
-      "body": [
-        {
-          "type": "TextualBody",
-          "value": "test",
-          "purpose": "commenting"
+  "annotation": [{
+    "@context": "http://www.w3.org/ns/anno.jsonld",
+    "type": "Annotation",
+    "body": [{
+        "type": "TextualBody",
+        "value": "a",
+        "purpose": "commenting"
+      },
+      {
+        "type": "TextualBody",
+        "purpose": "tagging",
+        "value": "Aspetto Fisico"
+      }
+    ],
+    "target": {
+      "selector": [{
+          "type": "TextQuoteSelector",
+          "exact": "Lorem ipsum dolor sit amet"
         },
         {
-          "type": "TextualBody",
-          "value": "test",
-          "purpose": "tagging"
+          "type": "TextPositionSelector",
+          "start": 0,
+          "end": 26
         }
-      ],
-      "target": {
-        "selector": [
-          {
-            "type": "TextQuoteSelector",
-            "exact": "Magnis dis"
-          },
-          {
-            "type": "TextPositionSelector",
-            "start": 325,
-            "end": 335
-          }
-        ]
-      },
-      "id": "#96964d45-3006-404f-b030-3b4735779f10"
-    }
-  ],
-  "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie a iaculis at erat. Sed libero enim sed faucibus turpis. Augue ut lectus arcu bibendum at varius. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. Magna fringilla urna porttitor rhoncus. Magnis dis parturient montes nascetur ridiculus mus mauris. Pharetra et ultrices neque ornare aenean. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus.</p><p><br/></p><p>Lorem</p>",
-  "diff": [
-    {
-      "0": 0,
-      "1": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie a iaculis at erat. Sed libero enim sed faucibus turpis. Augue ut lectus arcu bibendum at varius. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. Magna fringilla urna porttitor rhoncus. Magnis dis parturient montes nascetur ridiculus mus mauris. Pharetra et ultrices neque ornare aenean. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus.</p><p><br/></p><p>Lorem</p>"
-    }
-  ],
-  "prevtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie a iaculis at erat. Sed libero enim sed faucibus turpis. Augue ut lectus arcu bibendum at varius. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. Magna fringilla urna porttitor rhoncus. Magnis dis parturient montes nascetur ridiculus mus mauris. Pharetra et ultrices neque ornare aenean. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus.</p><p><br/></p><p>Lorem</p>"
+      ]
+    },
+    "id": "#03cf6fbf-85b8-4900-a4ca-9764d2e09069"
+  }],
+  "text": "<p>Lorem ipsum dolor sit amet. Vel neque galisum ad possimus enim sit explicabo natus. Qui voluptatum tenetur et quae laborum aut voluptas ratione et culpa explicabo aut optio esse eum excepturi deleniti.</p>",
+  "diff": [{
+    "0": 0,
+    "1": "<p>Lorem ipsum dolor sit amet. Vel neque galisum ad possimus enim sit explicabo natus. Qui voluptatum tenetur et quae laborum aut voluptas ratione et culpa explicabo aut optio esse eum excepturi deleniti.</p>"
+  }],
+  "prevtext": "<p>Lorem ipsum dolor sit amet. Vel neque galisum ad possimus enim sit explicabo natus. Qui voluptatum tenetur et quae laborum aut voluptas ratione et culpa explicabo aut optio esse eum excepturi deleniti.</p>"
 }

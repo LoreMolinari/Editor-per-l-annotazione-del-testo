@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 require("colors");
-const moment = require('moment');
+const moment = require("moment");
 
 const fs = require("fs");
 const path = require("path");
@@ -73,6 +73,10 @@ app.get("/diff", (req, res) => {
   res.json({ diff: data.diff });
 });
 
+app.get("/diff&annotations", (req, res) => {
+  res.json({ diff: data.diff, annotation: data.annotation, text: data.text });
+});
+
 app.get("/annotations", (req, res) => {
   res.json(data.annotation);
 });
@@ -88,7 +92,7 @@ app.post("/text", (req, res) => {
 
 app.post("/annotations", (req, res) => {
   const { annotations } = req.body;
-  
+
   data.annotation = annotations;
   saveChanges();
 });
@@ -107,12 +111,12 @@ const saveChanges = (nameFile = fileName) => {
     var prevtext = data.prevtext;
     var text = data.text;
 
-    if(text !== prevtext){
-      var time = moment().format('YYYY-MM-DD[T]HH-mm-ss-');
-    
+    if (text !== prevtext) {
+      var time = moment().format("YYYY-MM-DD[T]HH-mm-ss-");
+
       nameFile = time + nameFile;
       fileName = nameFile;
-      
+
       fs.writeFileSync("info.json", JSON.stringify({ fileName: nameFile }));
     }
   }

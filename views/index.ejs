@@ -7,17 +7,39 @@
     <title>RecogitoJS</title>
 
     <link rel="stylesheet" href="/css/recogito.min.css" />
-    
+
+    <!--JQuery-->
+    <script src="/js/recogito.min.js" rel="preload"></script>
+    <script src="/js/jquery-3.6.3.min.js" rel="preload"></script>
+
     <!--Diff-->
-    <script type="text/javascript" src="/js/diff_match_patch_uncompressed.js"></script>
+    <script
+      type="text/javascript"
+      src="/js/diff_match_patch_uncompressed.js"
+    ></script>
 
     <style>
-      pre {outline: 1px solid #ccc; padding: 5px; margin: 15px; overflow: auto;}
-      .string { color: green;}
-      .number { color: darkorange;}
-      .boolean { color: blue;}
-      .null { color: magenta;}
-      .key { color: red;}
+      pre {
+        outline: 1px solid #ccc;
+        padding: 5px;
+        margin: 15px;
+        overflow: auto;
+      }
+      .string {
+        color: green;
+      }
+      .number {
+        color: darkorange;
+      }
+      .boolean {
+        color: blue;
+      }
+      .null {
+        color: magenta;
+      }
+      .key {
+        color: red;
+      }
     </style>
   </head>
   <body>
@@ -30,46 +52,61 @@
     <button onclick="goToFirepad()">Passa all'Editor di testo</button>
     <button onclick="loadDiff()">Load Diff</button>
 
-    <script src="/js/recogito.min.js"></script>
-    <script src="/js/jquery-3.6.3.min.js"></script>
-    
     <script>
       var r;
 
-      // init RecogitoJS
+      var diff;
+      var ann;
+      var txt;
+
       (function () {
         $("#content").load("/text");
-
-        fetch("/diff")
-        .then((res) => res.json())
-        .then((data) => {
-            var dmp = new diff_match_patch();
-            localStorage.setItem("diff", JSON.stringify(data.diff));
-            
-            if(dmp.patch_make(data.diff).length!=0){
-              outputAlert(dmp.patch_make(data.diff));
-            }
-        });
 
         r = Recogito.init({
           content: "content",
           locale: "auto",
           allowEmpty: false,
+          mode: "html",
           widgets: [
             { widget: "COMMENT" },
             {
               widget: "TAG",
               vocabulary: [
                 // TAG POSSIBILI
-                "Place",
-                "Person",
-                "Event",
-                "Organization",
-                "Animal",
+                "Genere",
+                "Personale",
+                "Sesso",
+                "Aspetto Fisico",
+                "Denigrazione",
               ],
             },
           ],
           relationVocabulary: ["isRelated", "isPartOf", "isSameAs "],
+        });
+
+        r.loadAnnotations("/Annotations").then(function (annotation) {
+          fetch("/diff&annotations")
+            .then((res) => res.json())
+            .then((data) => {
+              dif = data.diff;
+              ann = data.annotation;
+              txt = data.text;
+              txt = txt.replace(/<\/?[^>]+(>|$)/g, "");
+            })
+            .then(() => {
+              localStorage.setItem("diff", JSON.stringify(dif));
+
+              if (dmp.patch_make(dif).length != 0) {
+                alert(
+                  "Attenzione!\nSono state effettuate queste modifiche: \n\n" +
+                    dmp.patch_make(dif) +
+                    "\nLe precedenti annotazione verranno eliminate e sovrascritte\n"
+                );
+
+                fixAnnotations(dif, ann, txt);
+                saveAnnotations();
+              }
+            });
         });
 
         // events handlers
@@ -80,57 +117,36 @@
         r.on("createAnnotation", function (a) {
           console.log("created", a);
 
-          fetch("/annotations", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                annotations: r.getAnnotations(),
-              }),
-          });
+          saveAnnotations();
         });
 
         r.on("updateAnnotation", function (annotation, previous) {
           console.log("updated", previous, "with", annotation);
 
-          fetch("/annotations", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                annotations: r.getAnnotations(),
-              }),
-          });
+          saveAnnotations();
         });
 
-        r.on("cancelSelected", function (annotation) {
-          console.log("cancel", annotation);
-
-          fetch("/annotations", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                annotations: r.getAnnotations(),
-              }),
-          });
+        r.on("cancelSelected", () => {
+          console.log("Selezione rimossa");
         });
-
-        // carica le annotazioni seguendo il W3 standard
-        // in questo caso farà una fetch (GET) al server che restituisce
-        // un array di JSON con le annotazioni
-        r.loadAnnotations("/annotations");
+        r.on("deleteAnnotation", function (annotation) {
+          console.log("Cancellata ", annotation);
+        });
       })();
+
+      var dmp = new diff_match_patch();
 
       function listAnnotations() {
         let annotations = r.getAnnotations();
-
         console.log("listAnnotations", annotations);
         // inviando questo JSON array al server si potrebberò salvare le annotazioni
-        // non è possibile modificare il testo, solo annotare, da quanto vedo
+      }
+
+      //Cancello le Annotazioni che hanno parti del testo modificate dall'Editor di testo Firepad
+      function deleteAnnotation(ann) {
+        r.removeAnnotation(ann);
+        console.log("annotazione rimossa con successo: ", ann);
+        listAnnotations();
       }
 
       function goToFirepad() {
@@ -138,46 +154,89 @@
         location.href = "/exit/recogito";
       }
 
-      function loadDiff(){
+      function loadDiff() {
         var str;
         var dmp = new diff_match_patch();
 
-        try{
-          output(syntaxHighlight(JSON.stringify(JSON.parse(localStorage.getItem("diff")), null, 2) + "\n" + JSON.stringify(dmp.patch_make(JSON.parse(localStorage.getItem("diff"))), null, 2)));
+        try {
+          output(
+            syntaxHighlight(
+              JSON.stringify(
+                JSON.parse(localStorage.getItem("diff")),
+                null,
+                2
+              ) +
+                "\n" +
+                JSON.stringify(
+                  dmp.patch_make(JSON.parse(localStorage.getItem("diff"))),
+                  null,
+                  2
+                )
+            )
+          );
           output(dmp.diff_prettyHtml(JSON.parse(localStorage.getItem("diff"))));
-        }catch{
+        } catch {
           alert("Nessuna differenza trovata nei file\n");
         }
-        
+
         function syntaxHighlight(json) {
-            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-                var cls = 'number';
-                if (/^"/.test(match)) {
-                    if (/:$/.test(match)) {
-                        return match;
-                    } else {
-                        cls = 'string';
-                    }
-                } else if (/true|false/.test(match)) {
-                    cls = 'boolean';
-                } else if (/null/.test(match)) {
-                    cls = 'null';
+          json = json
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+          return json.replace(
+            /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+            function (match) {
+              var cls = "number";
+              if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                  return match;
+                } else {
+                  cls = "string";
                 }
-                return '<span class="' + cls + '">' + match + '</span>';
-            });
+              } else if (/true|false/.test(match)) {
+                cls = "boolean";
+              } else if (/null/.test(match)) {
+                cls = "null";
+              }
+              return '<span class="' + cls + '">' + match + "</span>";
+            }
+          );
         }
 
         function output(inp) {
-            document.body.appendChild(document.createElement('pre')).innerHTML = inp;
+          document.body.appendChild(document.createElement("pre")).innerHTML =
+            inp;
         }
       }
 
-      
-      function outputAlert(inp) {
-        alert("Attenzione!\nSono state effettuate queste modifiche: \n\n" + inp + "\nLe precedenti annotazione verranno eliminate e sovrascritte\n");
+      function fixAnnotations(diff, annotations, text) {
+        annotations.forEach((item, index) => {
+          var differenza =
+            item.target.selector[1].end - item.target.selector[1].start;
+
+          if (
+            item.target.selector[0].exact !==
+            text.substr(item.target.selector[1].start, differenza)
+          ) {
+            console.log("si");
+
+            deleteAnnotation(item);
+          }
+        });
       }
 
+      function saveAnnotations() {
+        fetch("/annotations", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            annotations: r.getAnnotations(),
+          }),
+        });
+      }
     </script>
   </body>
 </html>
