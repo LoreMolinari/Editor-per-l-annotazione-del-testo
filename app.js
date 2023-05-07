@@ -13,6 +13,8 @@ require("ejs");
 let data = require(`./version/${fileName}.json`);
 require("dotenv").config();
 
+let tag = require("./Tag.json");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -71,6 +73,10 @@ app.get("/text", (req, res) => {
 
 app.get("/diff", (req, res) => {
   res.json({ diff: data.diff });
+});
+
+app.get("/tag", (req, res) => {
+  res.json({ tag: tag.tag });
 });
 
 app.get("/diff&annotations", (req, res) => {

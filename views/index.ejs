@@ -19,6 +19,10 @@
     ></script>
 
     <style>
+      .r6o-widget {
+        overflow: auto;
+      }
+
       pre {
         outline: 1px solid #ccc;
         padding: 5px;
@@ -59,6 +63,13 @@
       var ann;
       var txt;
 
+      function AddJSON() {
+        return (
+          JSON.parse(JSON.stringify("Test")) +
+          JSON.parse(JSON.stringify("Animale"))
+        );
+      }
+
       (function () {
         $("#content").load("/text");
 
@@ -66,25 +77,30 @@
           content: "content",
           locale: "auto",
           allowEmpty: false,
+          editorAutoPosition: true,
           mode: "html",
           widgets: [
             { widget: "COMMENT" },
             {
               widget: "TAG",
               vocabulary: [
-                // TAG POSSIBILI
-                "Genere",
-                "Personale",
-                "Sesso",
-                "Aspetto Fisico",
-                "Denigrazione",
+                // TAG POSSIBILI DI DEFAULT
+                "Generic",
               ],
             },
           ],
-          relationVocabulary: ["isRelated", "isPartOf", "isSameAs "],
+          relationVocabulary: ["isRelated", "isPartOf", "isSameAs"],
         });
 
         r.loadAnnotations("/Annotations").then(function (annotation) {
+          fetch("/tag")
+            .then((res) => res.json())
+            .then((data) => {
+              for (index in data.tag) {
+                r.widgets[1].vocabulary.push(data.tag[index]);
+              }
+            });
+
           fetch("/diff&annotations")
             .then((res) => res.json())
             .then((data) => {
