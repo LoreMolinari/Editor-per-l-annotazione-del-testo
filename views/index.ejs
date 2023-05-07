@@ -96,8 +96,8 @@
           fetch("/tag")
             .then((res) => res.json())
             .then((data) => {
-              for (index in data.tag) {
-                r.widgets[1].vocabulary.push(data.tag[index]);
+              for (index in data.itemListElement) {
+                r.widgets[1].vocabulary.push(data.itemListElement[index].item.name);
               }
             });
 
@@ -145,8 +145,11 @@
         r.on("cancelSelected", () => {
           console.log("Selezione rimossa");
         });
+
         r.on("deleteAnnotation", function (annotation) {
           console.log("Cancellata ", annotation);
+
+          saveAnnotations();
         });
       })();
 

@@ -1,15 +1,87 @@
 {
-    "tag": [
-        "Genere",
-        "Orientamento Sessuale",
-        "Etnia",
-        "Età",
-        "Casta",
-        "Credenze Religiose",
-        "Disabilità",
-        "Lingua",
-        "Nazionalità",
-        "Lavoro",
-        "Regione Geografica"
+    "@context": "https://schema.org",
+    "@type": "DiscriminationList",
+    "itemListElement": [
+      {
+        "@type": "Discrimination",
+        "position": 1,
+        "item": {
+          "@id": "https://example.com/#id",
+          "name": "Age",
+          "description": "Ageism or age discrimination is discrimination and stereotyping based on the grounds of someone's age.[14] It is a set of beliefs, norms, and values which used to justify discrimination or subordination based on a person's age. Ageism is most often directed toward elderly people, or adolescents and children."
+        }
+      },
+      {
+        "@type": "Discrimination",
+        "position": 2,
+        "item": {
+          "@id": "https://example.com/#id",
+          "name": "Caste",
+          "description": "According to UNICEF and Human Rights Watch, caste discrimination affects an estimated 250 million people worldwide and is mainly prevalent in parts of Asia (India, Sri Lanka, Bangladesh, Pakistan, Nepal, Japan) and Africa. As of 2011, there were 200 million Dalits or Scheduled Castes (formerly known as untouchables) in India."
+        }
+      },
+      {
+        "@type": "Discrimination",
+        "position": 3,
+        "item": {
+          "@id": "https://example.com/#id",
+          "name": "Disability",
+          "description": "Discrimination against people with disabilities in favor of people who are not is called ableism or disablism. Disability discrimination, which treats non-disabled individuals as the standard of 'normal living', results in public and private places and services, educational settings, and social services that are built to serve 'standard' people, thereby excluding those with various disabilities. Studies have shown that disabled people not only need employment in order to be provided with the opportunity to earn a living but they also need employment in order to sustain their mental health and well-being. Work fulfils a number of basic needs for an individual such as collective purpose, social contact, status, and activity. A person with a disability is often found to be socially isolated and work is one way to reduce his or her isolation."
+        }
+      },
+      {
+        "@type": "Discrimination",
+        "position": 4,
+        "item": {
+          "@id": "https://example.com/#id",
+          "name": "Language",
+          "description": "Linguistic discrimination (also called glottophobia, linguicism and languagism) is unfair treatment of people which is based on their use of language and the characteristics of their speech, including their first language, their accent, the perceived size of their vocabulary (whether or not the speaker uses complex and varied words), their modality, and their syntax. For example, an Occitan speaker in France will probably be treated differently from a French speaker. Based on a difference in use of language, a person may automatically form judgments about another person's wealth, education, social status, character or other traits, which may lead to discrimination."
+        }
+      },
+      {
+        "@type": "Discrimination",
+        "position": 5,
+        "item": {
+          "@id": "https://example.com/#id",
+          "name": "Nationality",
+          "description": "Discrimination on the basis of nationality is usually included in employment laws. It is sometimes referred to as bound together with racial discrimination although it can be separate. It may vary from laws that stop refusals of hiring based on nationality, asking questions regarding origin, to prohibitions of firing, forced retirement, compensation and pay, etc., based on nationality."
+        }
+      },
+      {
+        "@type": "Discrimination",
+        "position": 6,
+        "item": {
+          "@id": "https://example.com/#id",
+          "name": "Ethnicity",
+          "description": "Racial and ethnic discrimination differentiates individuals on the basis of real and perceived racial and ethnic differences and leads to various forms of the ethnic penalty."
+        }
+      },
+      {
+        "@type": "Discrimination",
+        "position": 7,
+        "item": {
+          "@id": "https://example.com/#id",
+          "name": "Gender identity",
+          "description": "Sexism is a form of discrimination based on a person's sex or gender. It has been linked to stereotypes and gender roles and may include the belief that one sex or gender is intrinsically superior to another."
+        }
+      },
+      {
+        "@type": "Discrimination",
+        "position": 8,
+        "item": {
+          "@id": "https://example.com/#id",
+          "name": "Religious beliefs",
+          "description": "Religious discrimination is valuing or treating people or groups differently because of what they do or do not believe in or because of their feelings towards a given religion."
+        }
+      },
+      {
+        "@type": "Discrimination",
+        "position": 9,
+        "item": {
+          "@id": "https://example.com/#id",
+          "name": "Sexual orientation",
+          "description": "One's sexual orientation is a predilection for homosexuality, heterosexuality, or bisexuality. Like most minority groups, homosexuals and bisexuals are vulnerable to prejudice and discrimination from the majority group."
+        }
+      }
     ]
-}
+  }

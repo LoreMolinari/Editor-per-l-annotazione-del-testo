@@ -76,7 +76,7 @@ app.get("/diff", (req, res) => {
 });
 
 app.get("/tag", (req, res) => {
-  res.json({ tag: tag.tag });
+  res.send(tag);
 });
 
 app.get("/diff&annotations", (req, res) => {
