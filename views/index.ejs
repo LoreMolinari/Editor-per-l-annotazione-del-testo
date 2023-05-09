@@ -97,7 +97,9 @@
             .then((res) => res.json())
             .then((data) => {
               for (index in data.itemListElement) {
-                r.widgets[1].vocabulary.push(data.itemListElement[index].item.name);
+                r.widgets[1].vocabulary.push(
+                  data.itemListElement[index].item.name
+                );
               }
             });
 
