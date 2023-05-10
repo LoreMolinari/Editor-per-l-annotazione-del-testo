@@ -37,7 +37,7 @@
         {
           "type": "TextualBody",
           "purpose": "tagging",
-          "value": "Age"
+          "value": "Disability"
         }
       ],
       "target": {
@@ -53,19 +53,19 @@
           }
         ]
       },
-      "id": "#e63e0ad7-fa2a-4bd0-9042-0147566be602"
+      "id": "#35b45dd3-63d2-48cc-8953-ea548fe8afc6"
     }
   ],
-  "text": "<p>Lorem ipsum dolor sit amet. Vel neque galisum ad possimus enim sit explicabo natus. Qui voluptatum tenetur et quae laborum aut voluptas ratione et culpa explicabo aut optio esse eum excepturi deleniti.</p>",
+  "text": "<p>Lorem ipsum dolor sit amet. Vel neque galisum ad possimus enim sit explicabo natus. Qui voluptatum tenetur et quae laborum aut voluptas ratione et culpa explicabo aut optio esse eum excepturi deleniti.</p><p>Lorem ipsum</p>",
   "diff": [
     {
       "0": 0,
       "1": "Lorem ipsum dolor sit amet. Vel neque galisum ad possimus enim sit explicabo natus. Qui voluptatum tenetur et quae laborum aut voluptas ratione et culpa explicabo aut optio esse eum excepturi deleniti."
     },
     {
-      "0": -1,
-      "1": "Lorem Ipsum"
+      "0": 1,
+      "1": "Lorem ipsum"
     }
   ],
-  "prevtext": "<p>Lorem ipsum dolor sit amet. Vel neque galisum ad possimus enim sit explicabo natus. Qui voluptatum tenetur et quae laborum aut voluptas ratione et culpa explicabo aut optio esse eum excepturi deleniti.</p><p><br/></p><p>Lorem Ipsum</p>"
+  "prevtext": "<p>Lorem ipsum dolor sit amet. Vel neque galisum ad possimus enim sit explicabo natus. Qui voluptatum tenetur et quae laborum aut voluptas ratione et culpa explicabo aut optio esse eum excepturi deleniti.</p>"
 }
