@@ -1,1 +1,25 @@
-@import '~mdb-ui-kit/css/mdb.min.css';/*# sourceMappingURL=styles.css.map */
+@charset "UTF-8";
+.textContainer {
+  background-color: rgba(64, 64, 64, 0.75); /* Opacità 75% */
+  padding: 20px; /* spazio intorno al testo */
+  border-radius: 10px; /* angoli arrotondati */
+  color: #fff; /* Colore testo */
+}
+
+.btn-primary {
+  --mdb-btn-bg: #333333 !important;
+  --mdb-btn-hover-bg: #555555 !important;
+  --mdb-btn-active-bg: #333333 !important;
+  --mdb-btn-focus-bg: #333333 !important;
+  --mdb-btn-box-shadow: 0 4px 9px -4px #555555 !important;
+  --mdb-btn-disabled-bg: #333333 !important;
+}
+
+.btn-secondary {
+  --mdb-btn-bg: #555555 !important;
+  --mdb-btn-hover-bg: #333333 !important;
+  --mdb-btn-active-bg: #555555 !important;
+  --mdb-btn-focus-bg: #555555 !important;
+  --mdb-btn-box-shadow: 0 4px 9px -4px #333333 !important;
+  --mdb-btn-disabled-bg: #555555 !important;
+}/*# sourceMappingURL=styles.css.map */
