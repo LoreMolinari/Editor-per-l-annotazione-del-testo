@@ -22,4 +22,75 @@
   --mdb-btn-focus-bg: #555555 !important;
   --mdb-btn-box-shadow: 0 4px 9px -4px #333333 !important;
   --mdb-btn-disabled-bg: #555555 !important;
+}
+
+/* Altezza barra centrale */
+#intro {
+  height: 600px;
+}
+
+.r6o-widget {
+  overflow: auto;
+}
+
+/* Colorazione e formattazione caselle di Diff */
+pre {
+  outline: 1px solid #ccc;
+  padding: 5px;
+  margin: 15px;
+  overflow: auto;
+}
+
+.string {
+  color: green;
+}
+
+.number {
+  color: darkorange;
+}
+
+.boolean {
+  color: blue;
+}
+
+.null {
+  color: magenta;
+}
+
+.key {
+  color: red;
+}
+
+/* Formattazione e schematizzazione Firepad */
+#container {
+  display: flex;
+  flex-direction: row;
+}
+
+#userlist {
+  position: relative;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  height: auto;
+  width: 175px;
+}
+
+.firepad-userlist {
+  border-radius: 25px;
+  padding: 2.5%;
+}
+
+.firepad-richtext .CodeMirror {
+  border-radius: 25px;
+  padding: 2.5%;
+}
+
+#firepad {
+  position: relative;
+  left: 5%;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  height: auto;
 }/*# sourceMappingURL=styles.css.map */
