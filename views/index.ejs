@@ -84,6 +84,9 @@
         <button type="button" class="btn btn-primary" onclick="loadDiff()">
           Diff
         </button>
+        <button type="button" class="btn btn-primary" onclick="download()">
+          Scarica il documento
+        </button>
       </div>
 
       <hr class="m-0" />
@@ -291,6 +294,10 @@
             annotations: r.getAnnotations(),
           }),
         });
+      }
+
+      function download() {
+        window.location.href = "/download";
       }
     </script>
   </body>

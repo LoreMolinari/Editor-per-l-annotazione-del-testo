@@ -3,7 +3,7 @@ const app = express();
 
 require("colors");
 const moment = require("moment");
-var createError = require('http-errors');
+var createError = require("http-errors");
 
 const fs = require("fs");
 const path = require("path");
@@ -32,7 +32,6 @@ app.get("/", (req, res) => {
   res.redirect("/recogito");
 });
 
-// da fare semaforo per accedere o a firepad o recogito
 app.get("/recogito", (req, res) => {
   if (lock.firepad !== 0)
     return res
@@ -48,7 +47,9 @@ app.get("/firepad", (req, res) => {
       .status(400)
       .json({ lock: true, message: "Qualcuno sta annotando" });
   lock.firepad++;
-  res.render("firepad");
+  res.render('firepad', {
+    apiKey: process.env.APIKEY
+});
 });
 
 app.get("/data", (req, res) => {
@@ -132,6 +133,16 @@ const saveChanges = (nameFile = fileName) => {
     JSON.stringify(data, null, 2)
   );
 };
+
+//Download file versionamento prodotto
+app.get("/download", (req, res) => {
+  var file = path.join(__dirname, "version", fileName + ".json");
+  res.download(file, req.body.filename, function (err) {
+    if (err) {
+      console.log("Errore nell'invio del file: " + file);
+    }
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
