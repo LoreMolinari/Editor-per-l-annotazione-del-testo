@@ -40,8 +40,11 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.js"
     ></script>
 
-    <!--My Style-->
+    <!-- My Style -->
     <link rel="stylesheet" href="/scss/styles.css" />
+
+    <!-- My scripts -->
+    <script type="text/javascript" src="/js/recogitoScripts.js"></script>
   </head>
   <body>
     <!--Main Navigation-->
@@ -64,13 +67,8 @@
       <!-- Background image -->
     </header>
 
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-      <input type="file" name="file">
-      <button type="submit">Carica</button>
-    </form>
-
     <!--Footer-->
-    <footer class="bg-light text-lg-start">
+    <footer class="bg-light text-lg-start" style="display: flex; flex-direction: column;">
       <div class="py-4 text-center">
         <button
           type="button"
@@ -93,6 +91,20 @@
           Scarica il documento
         </button>
       </div>
+      <div class="py-4 text-center" style="max-width: 75%; align-self: center;">
+        <form action="/" method="POST" enctype="multipart/form-data">
+          <label class="form-label" for="customFile">Selezione il file da caricare per l'annotazione (solamente il
+            formato .txt è disponibile)</label>
+          <input
+            class="form-control"
+            type="file"
+            id="uploadInput"
+            name="file"
+            accept=".txt"
+          />
+          <button type="submit" class="btn btn-primary" style="margin-top: 2.5%;">Carica</button>
+        </form>
+      </div>
 
       <hr class="m-0" />
     </footer>
@@ -104,13 +116,6 @@
       var diff;
       var ann;
       var txt;
-
-      function AddJSON() {
-        return (
-          JSON.parse(JSON.stringify("Test")) +
-          JSON.parse(JSON.stringify("Animale"))
-        );
-      }
 
       (function () {
         $("#content").load("/text");
@@ -197,113 +202,32 @@
         });
       })();
 
-      var dmp = new diff_match_patch();
+      (function () {
+        // Aggiungi l'evento di caricamento del file al form
+        var form = document.querySelector("form");
+        form.addEventListener("submit", handleFileUpload);
 
-      function listAnnotations() {
-        let annotations = r.getAnnotations();
-        console.log("listAnnotations", annotations);
-        // inviando questo JSON array al server si potrebberò salvare le annotazioni
-      }
+        // Funzione per gestire l'evento di caricamento del file
+        function handleFileUpload(event) {
+          event.preventDefault(); // Evita l'invio del form
 
-      //Cancello le Annotazioni che hanno parti del testo modificate dall'Editor di testo Firepad
-      function deleteAnnotation(ann) {
-        r.removeAnnotation(ann);
-        console.log("annotazione rimossa con successo: ", ann);
-        listAnnotations();
-      }
+          var fileInput = document.getElementById("uploadInput");
+          var file = fileInput.files[0]; // Ottieni il file caricato
 
-      function goToFirepad() {
-        localStorage.removeItem("diff");
-        location.href = "/exit/recogito";
-      }
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            var fileContent = e.target.result; // Ottieni il contenuto del file
 
-      function loadDiff() {
-        var str;
-        var dmp = new diff_match_patch();
+            // Aggiorna il contenuto della div "content"
+            var contentDiv = document.getElementById("content");
+            contentDiv.textContent = fileContent;
+          };
 
-        try {
-          output(
-            syntaxHighlight(
-              JSON.stringify(
-                JSON.parse(localStorage.getItem("diff")),
-                null,
-                2
-              ) +
-                "\n" +
-                JSON.stringify(
-                  dmp.patch_make(JSON.parse(localStorage.getItem("diff"))),
-                  null,
-                  2
-                )
-            )
-          );
-          output(dmp.diff_prettyHtml(JSON.parse(localStorage.getItem("diff"))));
-        } catch {
-          alert("Nessuna differenza trovata nei file\n");
+          reader.readAsText(file); // Leggi il contenuto del file come testo
         }
 
-        function syntaxHighlight(json) {
-          json = json
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
-          return json.replace(
-            /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
-            function (match) {
-              var cls = "number";
-              if (/^"/.test(match)) {
-                if (/:$/.test(match)) {
-                  return match;
-                } else {
-                  cls = "string";
-                }
-              } else if (/true|false/.test(match)) {
-                cls = "boolean";
-              } else if (/null/.test(match)) {
-                cls = "null";
-              }
-              return '<span class="' + cls + '">' + match + "</span>";
-            }
-          );
-        }
-
-        function output(inp) {
-          document.body.appendChild(document.createElement("pre")).innerHTML =
-            inp;
-        }
-      }
-
-      function fixAnnotations(diff, annotations, text) {
-        annotations.forEach((item, index) => {
-          var differenza =
-            item.target.selector[1].end - item.target.selector[1].start;
-
-          if (
-            item.target.selector[0].exact !==
-            text.substr(item.target.selector[1].start, differenza)
-          ) {
-            console.log("si");
-
-            deleteAnnotation(item);
-          }
-        });
-      }
-
-      function saveAnnotations() {
-        fetch("/annotations", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            annotations: r.getAnnotations(),
-          }),
-        });
-      }
-
-      function download() {
-        window.location.href = "/download";
-      }
+        // Rimuovi annotazioni e salva il testo!!
+      })();
     </script>
   </body>
 </html>
