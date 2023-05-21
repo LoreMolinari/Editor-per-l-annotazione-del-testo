@@ -1,20 +1,27 @@
 const express = require("express");
 const app = express();
+const { PDFDocument } = require("pdfjs-dist/legacy/build/pdf");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
 require("colors");
 const moment = require("moment");
-var createError = require("http-errors");
+const mime = require("mime-types");
+const createError = require("http-errors");
 
 const fs = require("fs");
 const path = require("path");
 
-let { fileName } = require("./info.json");
+const INFO_FILE_PATH = path.join(__dirname, "info.json");
+const TAG_FILE_PATH = path.join(__dirname, "Tag.json");
+
+let { fileName } = require(INFO_FILE_PATH);
 require("ejs");
 
 let data = require(`./version/${fileName}.json`);
 require("dotenv").config();
 
-let tag = require("./Tag.json");
+let tag = require(TAG_FILE_PATH);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -24,32 +31,35 @@ var lock = {
   recogito: 0,
   firepad: 0,
 };
-// uso EJS
+
 app.set("view engine", "ejs");
 
-// route / redirect to /recogito
 app.get("/", (req, res) => {
   res.redirect("/recogito");
 });
 
-app.get("/recogito", (req, res) => {
-  if (lock.firepad !== 0)
+const lockMiddleware = (req, res, next) => {
+  const { platform } = req.params;
+  
+  if ((platform === "recogito" && lock.firepad !== 0) || (platform === "firepad" && lock.recogito !== 0)) {
     return res
       .status(400)
-      .json({ lock: true, message: "Qualcuno sta modificando il testo" });
+      .json({ lock: true, message: `Qualcuno sta utilizzando ${platform === "recogito" ? "il recogito" : "il firepad"}` });
+  }
+  
+  next();
+};
+
+app.get("/recogito", lockMiddleware, (req, res) => {
   lock.recogito++;
   res.render("index");
 });
 
-app.get("/firepad", (req, res) => {
-  if (lock.recogito !== 0)
-    return res
-      .status(400)
-      .json({ lock: true, message: "Qualcuno sta annotando" });
+app.get("/firepad", lockMiddleware, (req, res) => {
   lock.firepad++;
-  res.render('firepad', {
-    apiKey: process.env.APIKEY
-});
+  res.render("firepad", {
+    apiKey: process.env.APIKEY,
+  });
 });
 
 app.get("/data", (req, res) => {
@@ -57,15 +67,12 @@ app.get("/data", (req, res) => {
 });
 
 app.get("/exit/:platform", (req, res) => {
-  let platforms = ["recogito", "firepad"];
+  const platforms = ["recogito", "firepad"];
   const { platform } = req.params;
 
-  console.log(lock);
   platforms.splice(platforms.indexOf(platform), 1);
 
   lock[platform]--;
-  console.log(lock);
-
   res.redirect("/" + platforms);
 });
 
@@ -105,9 +112,7 @@ app.post("/annotations", (req, res) => {
   saveChanges();
 });
 
-app.post("/diff", (req, res) => {
-  const { diff, prevtext } = req.body;
-
+app.post("/diff", ({ body: { diff, prevtext } }, res) => {
   data.diff = diff;
   data.prevtext = prevtext;
 
@@ -116,27 +121,26 @@ app.post("/diff", (req, res) => {
 
 const saveChanges = (nameFile = fileName) => {
   if (fileName !== nameFile) {
-    var prevtext = data.prevtext;
-    var text = data.text;
+    const { prevtext, text } = data;
 
     if (text !== prevtext) {
-      var time = moment().format("YYYY-MM-DD[T]HH-mm-ss-");
+      const time = moment().format("YYYY-MM-DD[T]HH-mm-ss-");
 
       nameFile = time + nameFile;
       fileName = nameFile;
 
-      fs.writeFileSync("info.json", JSON.stringify({ fileName: nameFile }));
+      fs.writeFileSync(INFO_FILE_PATH, JSON.stringify({ fileName: nameFile }));
     }
   }
+  
   fs.writeFileSync(
     path.join(__dirname, "version", fileName + ".json"),
     JSON.stringify(data, null, 2)
   );
 };
 
-//Download file versionamento prodotto
 app.get("/download", (req, res) => {
-  var file = path.join(__dirname, "version", fileName + ".json");
+  const file = path.join(__dirname, "version", fileName + ".json");
   res.download(file, req.body.filename, function (err) {
     if (err) {
       console.log("Errore nell'invio del file: " + file);
@@ -144,18 +148,43 @@ app.get("/download", (req, res) => {
   });
 });
 
-// catch 404 and forward to error handler
+app.post("/upload", upload.single("file"), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).send("Nessun file caricato.");
+  }
+
+  if (!req.file.mimetype.startsWith("text/")) {
+    return res
+      .status(400)
+      .send("Formato file non valido. Carica solo file di testo.");
+  }
+
+  try {
+    const fileContent = await fs.promises.readFile(req.file.path, "utf-8");
+
+    await fs.promises.unlink(req.file.path);
+
+    res.send(
+      `File caricato correttamente. Contenuto del file: \n\n${fileContent}`
+    );
+  } catch (error) {
+    console.error("Errore durante la lettura del file:", error);
+    return res
+      .status(500)
+      .send(
+        `Si è verificato un errore durante la lettura del file: ${error.message}`
+      );
+  }
+});
+
 app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
-  // render the error page
   res.status(err.status || 500);
   res.render("error");
 });
