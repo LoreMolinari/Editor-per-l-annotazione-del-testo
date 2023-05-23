@@ -1,0 +1,66 @@
+{
+  "annotation": [
+    {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      "type": "Annotation",
+      "body": [
+        {
+          "type": "TextualBody",
+          "purpose": "tagging",
+          "value": "Age"
+        }
+      ],
+      "target": {
+        "selector": [
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Lorem ipsum"
+          },
+          {
+            "type": "TextPositionSelector",
+            "start": 0,
+            "end": 11
+          }
+        ]
+      },
+      "id": "#287d7825-1cbc-4fb1-b273-61aa60d97082"
+    },
+    {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      "type": "Annotation",
+      "body": [
+        {
+          "type": "TextualBody",
+          "purpose": "tagging",
+          "value": "Language"
+        }
+      ],
+      "target": {
+        "selector": [
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Proin tincidunt"
+          },
+          {
+            "type": "TextPositionSelector",
+            "start": 342,
+            "end": 357
+          }
+        ]
+      },
+      "id": "#ed1a8482-cd85-41a2-8bb9-e3a646addd2f"
+    }
+  ],
+  "diff": [
+    {
+      "0": 0,
+      "1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce commodo faucibus tellus pellentesque porttitor. In sit amet consectetur lorem, et maximus purus. Integer at lacus auctor, imperdiet felis id, convallis enim. In hac habitasse platea dictumst. Curabitur at posuere felis. In semper lectus in est luctus, ut hendrerit dui accumsan. Proin tincidunt non eros id vestibulum. Nunc id congue arcu. Nam finibus dui vitae diam aliquam congue. Sed vel nunc eros. Phasellus venenatis sollicitudin feugiat. Sed maximus et sapien a pretium."
+    },
+    {
+      "0": -1,
+      "1": " Nullam aliquet iaculis eros sed ornare. Donec bibendum ex scelerisque tellus pulvinar rhoncus vitae sit amet tellus."
+    }
+  ],
+  "prevtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce commodo faucibus tellus pellentesque porttitor. In sit amet consectetur lorem, et maximus purus. Integer at lacus auctor, imperdiet felis id, convallis enim. In hac habitasse platea dictumst. Curabitur at posuere felis. In semper lectus in est luctus, ut hendrerit dui accumsan. Proin tincidunt non eros id vestibulum. Nunc id congue arcu. Nam finibus dui vitae diam aliquam congue. Sed vel nunc eros. Phasellus venenatis sollicitudin feugiat. Sed maximus et sapien a pretium. Nullam aliquet iaculis eros sed ornare. Donec bibendum ex scelerisque tellus pulvinar rhoncus vitae sit amet tellus.</p>",
+  "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce commodo faucibus tellus pellentesque porttitor. In sit amet consectetur lorem, et maximus purus. Integer at lacus auctor, imperdiet felis id, convallis enim. In hac habitasse platea dictumst. Curabitur at posuere felis. In semper lectus in est luctus, ut hendrerit dui accumsan. Proin tincidunt non eros id vestibulum. Nunc id congue arcu. Nam finibus dui vitae diam aliquam congue. Sed vel nunc eros. Phasellus venenatis sollicitudin feugiat. Sed maximus et sapien a pretium.</p>"
+}

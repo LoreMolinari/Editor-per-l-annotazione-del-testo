@@ -1,23 +1,26 @@
 var dmp = new diff_match_patch();
 
+// Funzione per ottenere la lista delle annotazioni
 function listAnnotations() {
   let annotations = r.getAnnotations();
   console.log("listAnnotations", annotations);
-  // inviando questo JSON array al server si potrebberò salvare le annotazioni
+  // Invia questo array JSON al server per salvare le annotazioni
 }
 
-//Cancello le Annotazioni che hanno parti del testo modificate dall'Editor di testo Firepad
+// Rimuove un'annotazione
 function deleteAnnotation(ann) {
   r.removeAnnotation(ann);
   console.log("annotazione rimossa con successo: ", ann);
-  listAnnotations();
+  listAnnotations(); // Aggiorna la lista delle annotazioni dopo la rimozione
 }
 
+// Funzione per andare a Firepad
 function goToFirepad() {
   localStorage.removeItem("diff");
   location.href = "/exit/recogito";
 }
 
+// Carica le differenze
 function loadDiff() {
   var str;
   var dmp = new diff_match_patch();
@@ -39,6 +42,7 @@ function loadDiff() {
     alert("Nessuna differenza trovata nei file\n");
   }
 
+  // Evidenzia la sintassi JSON nel codice HTML
   function syntaxHighlight(json) {
     json = json
       .replace(/&/g, "&amp;")
@@ -64,11 +68,13 @@ function loadDiff() {
     );
   }
 
+  // Stampa il risultato nel documento HTML
   function output(inp) {
     document.body.appendChild(document.createElement("pre")).innerHTML = inp;
   }
 }
 
+// Corregge le annotazioni in base alle differenze tra il testo e il suo contenuto annotato
 function fixAnnotations(diff, annotations, text) {
   annotations.forEach((item, index) => {
     var differenza =
@@ -78,13 +84,12 @@ function fixAnnotations(diff, annotations, text) {
       item.target.selector[0].exact !==
       text.substr(item.target.selector[1].start, differenza)
     ) {
-      console.log("si");
-
-      deleteAnnotation(item);
+      deleteAnnotation(item); // Rimuove l'annotazione se il testo è stato modificato
     }
   });
 }
 
+// Salva le annotazioni sul server
 function saveAnnotations() {
   fetch("/annotations", {
     method: "POST",
@@ -97,6 +102,7 @@ function saveAnnotations() {
   });
 }
 
+// Esegue il download
 function download() {
   window.location.href = "/download";
 }

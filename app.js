@@ -100,8 +100,12 @@ app.post("/text", (req, res) => {
   const { text, version } = req.body;
 
   data.text = text;
-
-  saveChanges(version);
+  if(version){
+    saveChanges(version);
+  }
+  else{
+    saveChanges();
+  }
   res.status(200).send();
 });
 

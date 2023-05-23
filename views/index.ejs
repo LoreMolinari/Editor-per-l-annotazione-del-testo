@@ -68,7 +68,10 @@
     </header>
 
     <!--Footer-->
-    <footer class="bg-light text-lg-start" style="display: flex; flex-direction: column;">
+    <footer
+      class="bg-light text-lg-start"
+      style="display: flex; flex-direction: column"
+    >
       <div class="py-4 text-center">
         <button
           type="button"
@@ -91,10 +94,12 @@
           Scarica il documento
         </button>
       </div>
-      <div class="py-4 text-center" style="max-width: 75%; align-self: center;">
+      <div class="py-4 text-center" style="max-width: 75%; align-self: center">
         <form action="/" method="POST" enctype="multipart/form-data">
-          <label class="form-label" for="customFile">Selezione il file da caricare per l'annotazione (solamente il
-            formato .txt è disponibile)</label>
+          <label class="form-label" for="customFile"
+            >Selezione il file da caricare per l'annotazione (solamente il
+            formato .txt è disponibile)</label
+          >
           <input
             class="form-control"
             type="file"
@@ -102,7 +107,13 @@
             name="file"
             accept=".txt"
           />
-          <button type="submit" class="btn btn-primary" style="margin-top: 2.5%;">Carica</button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="margin-top: 2.5%"
+          >
+            Carica
+          </button>
         </form>
       </div>
 
@@ -209,24 +220,46 @@
 
         // Funzione per gestire l'evento di caricamento del file
         function handleFileUpload(event) {
-          event.preventDefault(); // Evita l'invio del form
+          if (
+            confirm(
+              "Attenzione! Se carichi il documento tutte le precedenti annotazioni verrano cancellate, vuoi proseguire?"
+            )
+          ) {
+            event.preventDefault(); // Evita l'invio del form
 
-          var fileInput = document.getElementById("uploadInput");
-          var file = fileInput.files[0]; // Ottieni il file caricato
+            var fileInput = document.getElementById("uploadInput");
+            var file = fileInput.files[0]; // Ottieni il file caricato
+            var textUploaded;
 
-          var reader = new FileReader();
-          reader.onload = function (e) {
-            var fileContent = e.target.result; // Ottieni il contenuto del file
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              var fileContent = e.target.result; // Ottieni il contenuto del file
 
-            // Aggiorna il contenuto della div "content"
-            var contentDiv = document.getElementById("content");
-            contentDiv.textContent = fileContent;
-          };
+              // Aggiorna il contenuto della div "content"
+              var contentDiv = document.getElementById("content");
+              contentDiv.textContent = fileContent;
+              textUploaded = fileContent;
 
-          reader.readAsText(file); // Leggi il contenuto del file come testo
+              console.log(textUploaded);
+
+              fetch("/text", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  text: textUploaded,
+                }),
+              }).then(goToFirepad());
+            };
+
+            reader.readAsText(file); // Leggi il contenuto del file come testo
+            r.clearAnnotations();
+          } else {
+            event.preventDefault();
+            alert("Procedura di caricamento annullata");
+          }
         }
-
-        // Rimuovi annotazioni e salva il testo!!
       })();
     </script>
   </body>
