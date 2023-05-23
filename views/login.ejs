@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homepage</title>
+
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- MDB -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.js"
+    ></script>
+  </head>
+  <body style="display: flex; justify-content: center">
+    <form id="form" style="margin-top: 25%">
+      <!-- Nome utente input -->
+      <div class="form-outline mb-4">
+        <input type="username" id="user" class="form-control" required />
+        <label class="form-label" for="user">Nome utente</label>
+      </div>
+
+      <!-- Submit button -->
+      <button type="button" id="invio" class="btn btn-primary btn-block mb-4">
+        Accedi
+      </button>
+    </form>
+
+    <script>
+      document.getElementById("form").addEventListener("submit", logIn);
+
+      function logIn(e) {
+        e.preventDefault();
+
+        var usernameInput = document.getElementById("user");
+        var username = usernameInput.value;
+
+        if (username.trim() === "") {
+          alert("Inserisci un nome utente valido!");
+          return; // Esce dalla funzione se l'username è vuoto
+        } else {
+          localStorage.setItem("user", username);
+          window.location.href = "/recogito";
+        }
+      }
+    </script>
+  </body>
+</html>

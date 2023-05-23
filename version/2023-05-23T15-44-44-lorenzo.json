@@ -1,0 +1,61 @@
+{
+  "text": "<p>Lorem ipsum dolor sit amet. Vel neque galisum ad possimus enim sit explicabo natus. Qui voluptatum tenetur et quae laborum aut voluptas ratione et culpa explicabo aut optio esse eum excepturi deleniti.</p></br><p>Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura, ché la diritta via era smarrita. Ahi quanto a dir qual era è cosa dura, esta selva selvaggia e aspra e forte, che nel pensier rinova la paura! Tant'è amara che poco è più morte; ma per trattar del ben ch'i' vi trovai, dirò de l'altre cose ch'i' v'ho scorte. Io non so ben ridir com'i' v'intrai, tant'era pien di sonno a quel punto che la verace via abbandonai.</p></br><p>Quel ramo del lago di Como, che volge a mezzogiorno, tra due catene non interrotte di monti, tutto a seni e a golfi, a seconda dello sporgere e del rientrare di quelli, vien, quasi a un tratto, a ristringersi, e a prender corso e figura di fiume, tra un promontorio a destra, e un'ampia costiera dall'altra parte</p>",
+  "user": "lorenzo",
+  "annotation": [
+    {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      "type": "Annotation",
+      "body": [
+        {
+          "type": "TextualBody",
+          "purpose": "tagging",
+          "value": "Disability"
+        },
+        {
+          "type": "TextualBody",
+          "purpose": "tagging",
+          "value": "Language"
+        }
+      ],
+      "target": {
+        "selector": [
+          {
+            "type": "TextQuoteSelector",
+            "exact": "Quel ramo del lago di Como"
+          },
+          {
+            "type": "TextPositionSelector",
+            "start": 631,
+            "end": 657
+          }
+        ]
+      },
+      "id": "#5cc6d3f9-00a8-4a60-bba4-80bfe29217bd"
+    },
+    {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      "type": "Annotation",
+      "body": [
+        {
+          "type": "TextualBody",
+          "purpose": "tagging",
+          "value": "Nationality"
+        }
+      ],
+      "target": {
+        "selector": [
+          {
+            "type": "TextQuoteSelector",
+            "exact": "un'ampia costiera"
+          },
+          {
+            "type": "TextPositionSelector",
+            "start": 909,
+            "end": 926
+          }
+        ]
+      },
+      "id": "#67850cd0-d6a6-489f-a74e-19d851101776"
+    }
+  ]
+}
