@@ -1,12 +1,10 @@
 const express = require("express");
 const app = express();
-const { PDFDocument } = require("pdfjs-dist/legacy/build/pdf");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
 require("colors");
 const moment = require("moment");
-const mime = require("mime-types");
 const createError = require("http-errors");
 
 const fs = require("fs");
