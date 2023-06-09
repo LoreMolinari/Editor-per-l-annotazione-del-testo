@@ -82,6 +82,13 @@
         >
           Salva le annotazioni
         </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="reboot()"
+        >
+          Ricomincia
+        </button>
       </div>
 
       <hr class="m-0" />
@@ -181,6 +188,11 @@
             annotations: r.getAnnotations(),
           }),
         }).then(alert("Annotazioni salvate correttamente"));
+      }
+
+      function reboot(){
+        saveAnnotations();
+        document.location.href="/";
       }
     </script>
   </body>
