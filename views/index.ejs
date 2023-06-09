@@ -227,6 +227,9 @@
           ) {
             event.preventDefault(); // Evita l'invio del form
 
+            r.clearAnnotations();
+            saveAnnotations();
+
             var fileInput = document.getElementById("uploadInput");
             var file = fileInput.files[0]; // Ottieni il file caricato
             var textUploaded;
@@ -254,7 +257,7 @@
             };
 
             reader.readAsText(file); // Leggi il contenuto del file come testo
-            r.clearAnnotations();
+            
           } else {
             event.preventDefault();
             alert("Procedura di caricamento annullata");
