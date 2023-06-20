@@ -7,5 +7,28 @@
     "express": "^4.18.2",
     "http-errors": "^2.0.0",
     "moment": "^2.29.4"
-  }
+  },
+  "name": "editor-per-l-annotazione-del-testo",
+  "description": "Editor collaborativo per l'annotazione del testo",
+  "version": "1.0.0",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LoreMolinari/Editor-per-l-annotazione-del-testo.git"
+  },
+  "keywords": [
+    "Editor",
+    "collaborativo",
+    "Editor",
+    "annotativo"
+  ],
+  "author": "Lorenzo Molinari",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LoreMolinari/Editor-per-l-annotazione-del-testo/issues"
+  },
+  "homepage": "https://github.com/LoreMolinari/Editor-per-l-annotazione-del-testo#readme"
 }
