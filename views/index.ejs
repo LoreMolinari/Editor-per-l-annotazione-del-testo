@@ -57,7 +57,13 @@
             <div class="text-white px-4">
               <h1>Editor Annotativo</h1>
               <p id="usernameParagraph">Utente:</p>
-              <div id="content" class="plaintext textContainer"></div>
+              <div id="content" class="tweet plaintext textContainer"></div>
+              <button id="nextTweetBtn" onclick="nextTweet()">=></button>
+              <script
+                async
+                src="https://platform.twitter.com/widgets.js"
+                charset="utf-8"
+              ></script>
             </div>
           </div>
         </div>
@@ -82,11 +88,7 @@
         >
           Salva le annotazioni
         </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          onclick="reboot()"
-        >
+        <button type="button" class="btn btn-primary" onclick="reboot()">
           Ricomincia
         </button>
       </div>
@@ -96,14 +98,31 @@
     <!--Footer-->
 
     <script>
+      var nTweet = 0;
       var r;
 
       var diff;
       var ann;
       var txt;
 
+      function nextTweet() {
+        if (nTweet < 3) {
+          nTweet++;
+          loadTweet();
+        }
+      }
+
+      function loadTweet(){
+        $("#content").load("/text", { tweet: nTweet });
+        saveAnnotations();
+        r.removeAnnotation();
+        if(nTweet==3){
+          nTweet=0;
+        }
+      }
+
       (function () {
-        $("#content").load("/text");
+        $("#content").load("/text", { tweet: nTweet });
 
         var user = localStorage.getItem("user");
         // Controlla se l'username è valido e lo inserisce nel paragrafo se presente
@@ -160,7 +179,6 @@
 
         r.on("deleteAnnotation", function (annotation) {
           console.log("Cancellata ", annotation);
-
         });
       })();
 
@@ -186,13 +204,15 @@
           body: JSON.stringify({
             user: localStorage.getItem("user"),
             annotations: r.getAnnotations(),
+            tweet: $("#content").text(),
+            nTweet: nTweet,
           }),
         }).then(alert("Annotazioni salvate correttamente"));
       }
 
-      function reboot(){
+      function reboot() {
         saveAnnotations();
-        document.location.href="/";
+        document.location.href = "/";
       }
     </script>
   </body>

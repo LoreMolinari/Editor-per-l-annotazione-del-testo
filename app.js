@@ -32,89 +32,56 @@ app.get("/", (req, res) => {
   res.render("login");
 });
 
-// da fare semaforo per accedere o a firepad o recogito
 app.get("/recogito", (req, res) => {
   res.render("index");
 });
-
-/*app.get("/firepad", (req, res) => {
-  if (lock.recogito !== 0)
-    return res
-      .status(400)
-      .json({ lock: true, message: "Qualcuno sta annotando" });
-  lock.firepad++;
-  res.render("firepad");
-});*/
 
 app.get("/data", (req, res) => {
   res.status(200).json(lock);
 });
 
-/*app.get("/exit/:platform", (req, res) => {
-  let platforms = ["recogito", "firepad"];
-  const { platform } = req.params;
-
-  console.log(lock);
-  platforms.splice(platforms.indexOf(platform), 1);
-
-  lock[platform]--;
-  console.log(lock);
-
-  res.redirect("/" + platforms);
-});*/
-
-app.get("/text", (req, res) => {
-  res.send(data.text);
+app.post("/text", (req, res) => {
+  const nTweet = req.body.tweet;
+  
+  const tweet = data.tweets[nTweet].content;
+  
+  if (tweet) {
+    res.send(tweet);
+  } else {
+    res.sendStatus(404);
+  }
 });
 
-/*app.get("/diff", (req, res) => {
-  res.json({ diff: data.diff });
-});*/
+
 
 app.get("/tag", (req, res) => {
   res.send(tag);
 });
 
-/*app.get("/diff&annotations", (req, res) => {
-  res.json({ diff: data.diff, annotation: data.annotation, text: data.text });
-});*/
-
-/*app.get("/annotations", (req, res) => {
-  res.json(data.annotation);
-});*/
-
-/*app.post("/text", (req, res) => {
-  const { text, version } = req.body;
-
-  data.text = text;
-
-  saveChanges(version);
-  res.status(200).send();
-});*/
-
 app.post("/annotations", (req, res) => {
-  const { annotations, user } = req.body;
+  const { annotations, user, tweet, nTweet } = req.body;
 
   data.user = user;
-  data.annotation = annotations;
-  saveChanges(user);
+  data.annotation=annotations;
+  data.tweet=tweet;
+  data.nTweet=nTweet;
+
+  saveChanges(user, nTweet);
 });
 
-/*app.post("/diff", (req, res) => {
-  const { diff, prevtext } = req.body;
-
-  data.diff = diff;
-  data.prevtext = prevtext;
-
-  saveChanges();
-});*/
-
-const saveChanges = (user) => {
+const saveChanges = (user, nTweet) => {
   var time = moment().format("YYYY-MM-DD[T]HH-mm-ss-");
-  var fileName = time + user;
+  var fileName = time + user + "-T" + nTweet;
+  var filePath = path.join(__dirname, "version", fileName + ".json");
+
+  // Controlla se il file esiste già
+  if (!fs.existsSync(filePath)) {
+    // Crea il file se non esiste
+    fs.writeFileSync(filePath, "");
+  }
 
   fs.writeFileSync(
-    path.join(__dirname, "version", fileName + ".json"),
+    filePath,
     JSON.stringify(data, null, 2)
   );
 };
