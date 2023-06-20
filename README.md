@@ -1,4 +1,3 @@
-```
 # Editor collaborativo per l'annotazione del testo
 
 Questo progetto è stato sviluppato come parte di una tesi di laurea presso l'Università degli Studi di Milano, presso il SesarLab del Dipartimento di Informatica.
@@ -36,4 +35,3 @@ Il progetto fa uso delle seguenti tecnologie e strumenti:
 ## Contatti
 
 Per ulteriori informazioni sul progetto, contattare Lorenzo Molinari all'indirizzo email loremolinari1@gmail.com
-```
