@@ -57,6 +57,8 @@ app.get("/firepad", lockMiddleware, (req, res) => {
   lock.firepad++;
   res.render("firepad", {
     apiKey: process.env.APIKEY,
+    authDomain: process.env.AUTHDOMAIN,
+    databaseUrl: process.env.DATABASEURL,
   });
 });
 

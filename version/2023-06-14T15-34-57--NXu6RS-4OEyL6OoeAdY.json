@@ -7,7 +7,7 @@
         {
           "type": "TextualBody",
           "purpose": "tagging",
-          "value": "Age"
+          "value": "Caste"
         }
       ],
       "target": {
@@ -33,6 +33,11 @@
           "type": "TextualBody",
           "value": "free text",
           "purpose": "commenting"
+        },
+        {
+          "type": "TextualBody",
+          "purpose": "tagging",
+          "value": "Religious beliefs"
         }
       ],
       "target": {
@@ -57,6 +62,6 @@
       "1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce commodo faucibus tellus pellentesque porttitor. In sit amet consectetur lorem, et maximus purus. Integer at lacus auctor, imperdiet felis id, convallis enim. In hac habitasse platea dictumst. Curabitur at posuere felis. In semper lectus in est luctus, ut hendrerit dui accumsan. Proin tincidunt non eros id vestibulum. Nunc id congue arcu. Nam finibus dui vitae diam aliquam congue. Sed vel nunc eros. Phasellus venenatis sollicitudin feugiat. Sed maximus et sapien a pretium. Nullam aliquet iaculis eros sed ornare. Donec bibendum ex scelerisque tellus pulvinar rhoncus vitae sit amet tellus."
     }
   ],
-  "prevtext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce commodo faucibus tellus pellentesque porttitor. In sit amet consectetur lorem, et maximus purus. Integer at lacus auctor, imperdiet felis id, convallis enim. In hac habitasse platea dictumst. Curabitur at posuere felis. In semper lectus in est luctus, ut hendrerit dui accumsan. Proin tincidunt non eros id vestibulum. Nunc id congue arcu. Nam finibus dui vitae diam aliquam congue. Sed vel nunc eros. Phasellus venenatis sollicitudin feugiat. Sed maximus et sapien a pretium. Nullam aliquet iaculis eros sed ornare. Donec bibendum ex scelerisque tellus pulvinar rhoncus vitae sit amet tellus.",
+  "prevtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce commodo faucibus tellus pellentesque porttitor. In sit amet consectetur lorem, et maximus purus. Integer at lacus auctor, imperdiet felis id, convallis enim. In hac habitasse platea dictumst. Curabitur at posuere felis. In semper lectus in est luctus, ut hendrerit dui accumsan. Proin tincidunt non eros id vestibulum. Nunc id congue arcu. Nam finibus dui vitae diam aliquam congue. Sed vel nunc eros. Phasellus venenatis sollicitudin feugiat. Sed maximus et sapien a pretium. Nullam aliquet iaculis eros sed ornare. Donec bibendum ex scelerisque tellus pulvinar rhoncus vitae sit amet tellus.</p>",
   "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce commodo faucibus tellus pellentesque porttitor. In sit amet consectetur lorem, et maximus purus. Integer at lacus auctor, imperdiet felis id, convallis enim. In hac habitasse platea dictumst. Curabitur at posuere felis. In semper lectus in est luctus, ut hendrerit dui accumsan. Proin tincidunt non eros id vestibulum. Nunc id congue arcu. Nam finibus dui vitae diam aliquam congue. Sed vel nunc eros. Phasellus venenatis sollicitudin feugiat. Sed maximus et sapien a pretium. Nullam aliquet iaculis eros sed ornare. Donec bibendum ex scelerisque tellus pulvinar rhoncus vitae sit amet tellus.</p>"
 }

@@ -106,6 +106,8 @@
 
     <script>
       var apiKey = <%- JSON.stringify(apiKey) %>;
+      var authD = <%- JSON.stringify(authDomain) %>;
+      var dbUrl = <%- JSON.stringify(databaseUrl) %>;
       var firepadRef;
       var codeMirror;
       var firepad;
@@ -114,9 +116,8 @@
       function init() {
         const config = {
           apiKey: apiKey,
-          authDomain: "editor-collaborativo.firebaseapp.com",
-          databaseURL:
-            "https://editor-collaborativo-default-rtdb.europe-west1.firebasedatabase.app",
+          authDomain: authD,
+          databaseURL: dbUrl,
         };
 
         firebase.initializeApp(config);
