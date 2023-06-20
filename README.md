@@ -34,4 +34,4 @@ Il progetto fa uso delle seguenti tecnologie e strumenti:
 
 ## Contatti
 
-Per ulteriori informazioni sul progetto, contattare Lorenzo Molinari all'indirizzo email loremolinari1@gmail.com
+Per ulteriori informazioni sul progetto, contattare Lorenzo Molinari all'indirizzo email: loremolinari1@gmail.com, website: https://lorenzomolinari.netlify.app/
